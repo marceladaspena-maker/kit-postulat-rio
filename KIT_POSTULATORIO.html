@@ -2826,10 +2826,23 @@ function closeChecklist() {
   if (navEl) navEl.classList.add('active');
 }
 
+
+function handleChecklistChange(el) {
+  var tipo = el.getAttribute('data-tipo');
+  var id   = el.getAttribute('data-id');
+  if (!clChecked[tipo]) clChecked[tipo] = {};
+  clChecked[tipo][id] = el.checked;
+  var label = el.closest('.checklist-item');
+  if (label) {
+    if (el.checked) label.classList.add('checked');
+    else label.classList.remove('checked');
+  }
+  updateAllProgress(tipo);
+}
 function renderChecklist() {
-  const tipo = document.getElementById('cl-tipo').value;
+  var tipo = document.getElementById('cl-tipo').value;
   if (!tipo) {
-    document.getElementById('cl-body').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--gray)"><div style="font-size:48px;margin-bottom:16px">📋</div><p style="font-size:15px">Selecione o tipo de processo acima para carregar o checklist</p></div>';
+    document.getElementById('cl-body').innerHTML = '<div style="text-align:center;color:#94A3B8;padding:40px">Selecione o tipo de processo acima</div>';
     document.getElementById('cl-stats').style.display = 'none';
     document.getElementById('cl-actions').style.display = 'none';
     document.getElementById('cl-obs-area').style.display = 'none';
@@ -2838,29 +2851,32 @@ function renderChecklist() {
   }
   clCurrentType = tipo;
   if (!clChecked[tipo]) clChecked[tipo] = {};
-  const data = CHECKLIST_DATA[tipo];
+  var data = CHECKLIST_DATA[tipo];
   if (!data) return;
   document.getElementById('cl-stats').style.display = 'flex';
   document.getElementById('cl-actions').style.display = 'flex';
   document.getElementById('cl-obs-area').style.display = 'block';
-  let html = '';
-  data.categories.forEach(function(cat, ci) {
-    const catId = 'cat_' + ci;
-    html += '<div class="checklist-category" id="' + catId + '">';
+  var html = '';
+  data.categories.forEach(function(cat, catIdx) {
+    var catId = 'cat_' + catIdx;
+    html += '<div class="checklist-category">';
     html += '<div class="checklist-cat-header" onclick="toggleCat(this)">';
-    html += '<div class="checklist-cat-title"><span>' + cat.label + '</span></div>';
-    html += '<div class="checklist-cat-progress"><div class="progress-bar"><div class="progress-fill" id="pf_' + catId + '" style="width:0%"></div></div>';
-    html += '<span style="font-size:12px;color:var(--gray)" id="pl_' + catId + '">0/' + cat.items.length + '</span>';
-    html += '<span class="collapse-arrow">▼</span></div></div>';
-    html += '<div class="checklist-items">';
+    html += '<span class="checklist-cat-title">' + cat.label + '</span>';
+    html += '<span class="collapse-arrow">▾</span></div>';
+    html += '<div class="checklist-cat-body">';
     cat.items.forEach(function(item) {
-      const checked = clChecked[tipo] && clChecked[tipo][item.id];
-      let tags = '';
-      if (item.urgent) tags += '<span class="item-tag urgent">OBRIGATÓRIO</span>';
+      var checked = clChecked[tipo] && clChecked[tipo][item.id];
+      var tags = '';
+      if (item.urgent)   tags += '<span class="item-tag urgent">OBRIGATÓRIO</span>';
       if (item.optional) tags += '<span class="item-tag optional">OPCIONAL</span>';
-      if (item.family) tags += '<span class="item-tag family">POR MEMBRO</span>';
-      html += '<label class="checklist-item' + (checked ? ' checked' : '') + '">';
-      html += '<input type="checkbox"' + (checked ? ' checked' : '') + ' onchange="toggleItem('' + tipo + '\',\'' + item.id + '\', this, \'' + catId + '\')">';
+      if (item.family)   tags += '<span class="item-tag family">POR MEMBRO</span>';
+      var chkAttr = checked ? ' checked' : '';
+      var lblClass = checked ? 'checklist-item checked' : 'checklist-item';
+      // Use data attributes to avoid quote issues in onclick
+      html += '<label class="' + lblClass + '">';
+      html += '<input type="checkbox"' + chkAttr;
+      html += ' data-tipo="' + tipo + '" data-id="' + item.id + '" data-cat="' + catId + '"';
+      html += ' onchange="handleChecklistChange(this)">';
       html += '<span class="item-label">' + item.label + '</span>' + tags + '</label>';
     });
     html += '</div></div>';
