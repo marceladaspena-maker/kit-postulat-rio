@@ -2860,7 +2860,7 @@ function renderChecklist() {
       if (item.optional) tags += '<span class="item-tag optional">OPCIONAL</span>';
       if (item.family) tags += '<span class="item-tag family">POR MEMBRO</span>';
       html += '<label class="checklist-item' + (checked ? ' checked' : '') + '">';
-      html += '<input type="checkbox"' + (checked ? ' checked' : '') + ' onchange="toggleItem(\'' + tipo + '\',\'' + item.id + '\', this, \'' + catId + '\')">';
+      html += '<input type="checkbox"' + (checked ? ' checked' : '') + ' onchange="toggleItem('' + tipo + '\',\'' + item.id + '\', this, \'' + catId + '\')">';
       html += '<span class="item-label">' + item.label + '</span>' + tags + '</label>';
     });
     html += '</div></div>';
