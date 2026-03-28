@@ -1,0 +1,3052 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit Postulatório | Marcela Pena Advocacia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #9A7820;
+    --gold-light: #7A5F18;
+    --gold-pale: #FBF5E6;
+    --dark: #F4F6F9;
+    --dark2: #FFFFFF;
+    --navy: #0F3460;
+    --white: #1A1A2E;
+    --gray: #6B7280;
+    --gray-light: #F0F2F5;
+    --border: #DDE1E8;
+    --red: #C0392B;
+    --green: #1A6B45;
+    --green-light: #E8F5EE;
+    --shadow: 0 4px 24px rgba(15,52,96,0.10);
+    --shadow-lg: 0 12px 48px rgba(15,52,96,0.15);
+    /* Light theme extras */
+    --text: #1A1A2E;
+    --text-soft: #4A5568;
+    --card-bg: #FFFFFF;
+    --card-border: #DDE1E8;
+    --input-bg: #F8FAFC;
+    --input-border: #CBD5E0;
+    --sidebar-bg: #FFFFFF;
+    --sidebar-border: #E2E8F0;
+    --topbar-bg: #FFFFFF;
+    --overlay-bg: #F4F6F9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F4F6F9;
+    color: #1A1A2E;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 260px;
+    background: #FFFFFF;
+    border-right: 1px solid #E2E8F0;
+    display: flex; flex-direction: column;
+    z-index: 100;
+    box-shadow: 2px 0 12px rgba(15,52,96,0.06);
+  }
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid #E2E8F0;
+    background: linear-gradient(135deg, #0F3460 0%, #1a4a7a 100%);
+  }
+  .sidebar-logo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700;
+    color: #D4AF5A;
+    line-height: 1.3;
+  }
+  .sidebar-logo p {
+    font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .sidebar-section { padding: 16px 12px 8px; }
+  .sidebar-section-label {
+    font-size: 10px; font-weight: 700;
+    color: #94A3B8;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 0 12px; margin-bottom: 6px;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px;
+    font-size: 13px; font-weight: 400;
+    color: #4A5568;
+    cursor: pointer; transition: all .2s;
+    border: none; background: none; width: 100%; text-align: left;
+  }
+  .nav-item:hover { background: #EEF2FF; color: #0F3460; }
+  .nav-item.active { background: #EEF2FF; color: #0F3460; font-weight: 600; border-left: 3px solid #9A7820; padding-left: 9px; }
+  .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 16px;
+    border-top: 1px solid #E2E8F0;
+    background: #F8FAFC;
+  }
+  .status-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; border-radius: 8px;
+    background: #E8F5EE;
+    border: 1px solid #C6E8D4;
+    font-size: 12px;
+    color: #1A6B45;
+  }
+  .status-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #2ECC71; flex-shrink: 0;
+    box-shadow: 0 0 6px #2ECC71;
+  }
+  .status-dot.disconnected { background: var(--gray); box-shadow: none; }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 260px;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 16px 32px;
+    display: flex; align-items: center; gap: 16px;
+    position: sticky; top: 0; z-index: 50;
+    box-shadow: 0 1px 8px rgba(15,52,96,0.06);
+  }
+  .topbar h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 600;
+    color: #0F3460;
+    flex: 1;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 20px; border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; border: none; transition: all .2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-gold {
+    background: #9A7820;
+    color: #FFF;
+  }
+  .btn-gold:hover { background: #7A5F18; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: #7A5F18;
+    border: 1px solid #C9A84C;
+  }
+  .btn-outline:hover { background: #FBF5E6; }
+  .btn-ghost { background: #F0F2F5; color: #4A5568; border: 1px solid #E2E8F0; }
+  .btn-ghost:hover { background: #E2E8F0; color: #1A1A2E; }
+  .btn-danger { background: var(--red); color: #FFF; }
+  .btn-success { background: var(--green); color: #FFF; }
+  .btn-success:hover { background: #1e8050; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; transform: none !important; }
+
+  /* ── CONTENT ── */
+  .content { padding: 32px; flex: 1; }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ── PROMAD LOGIN SCREEN ── */
+  .promad-frame-container {
+    background: var(--dark2);
+    border: 1px solid rgba(184,150,46,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .promad-toolbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px;
+    background: #F0F2F5;
+    border-bottom: 1px solid rgba(184,150,46,0.1);
+  }
+  .promad-toolbar input {
+    flex: 1; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; padding: 7px 12px;
+    font-size: 13px; color: var(--gray);
+    font-family: monospace;
+  }
+  .promad-status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--gray);
+  }
+  iframe#promad-iframe {
+    width: 100%; height: 580px;
+    border: none; display: block;
+    background: #fff;
+  }
+  .promad-actions {
+    padding: 16px 20px;
+    background: rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(184,150,46,0.1);
+    display: flex; gap: 10px; align-items: center;
+  }
+  .info-box {
+    background: #FBF5E6;
+    border: 1px solid #C9A84C;
+    border-radius: 10px; padding: 14px 18px;
+    font-size: 13px; color: #7A5F18;
+    display: flex; gap: 10px; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  /* ── CLIENT CARD ── */
+  .client-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+    border: 1px solid #DDE1E8;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 16px rgba(15,52,96,0.08);
+    margin-bottom: 28px;
+  }
+  .client-card-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .client-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700;
+    color: #0F3460;
+  }
+  .client-proc {
+    font-size: 12px; color: #7A5F18;
+    background: #FBF5E6;
+    border: 1px solid #C9A84C;
+    padding: 4px 10px; border-radius: 20px;
+    font-weight: 600; letter-spacing: .5px;
+  }
+  .client-fields {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .client-field label {
+    font-size: 10px; font-weight: 700; color: #94A3B8;
+    text-transform: uppercase; letter-spacing: 1px;
+    display: block; margin-bottom: 4px;
+  }
+  .client-field span {
+    font-size: 13px; color: #1A1A2E; font-weight: 400;
+  }
+  .client-field input, .client-field select {
+    width: 100%; background: #F8FAFC;
+    border: 1px solid #CBD5E0;
+    border-radius: 6px; padding: 8px 10px;
+    font-size: 13px; color: #1A1A2E;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+  }
+  .client-field input:focus, .client-field select:focus {
+    border-color: #9A7820;
+    background: #FBF5E6;
+    box-shadow: 0 0 0 3px rgba(154,120,32,0.1);
+  }
+  .client-field select option { background: #FFFFFF; color: #1A1A2E; }
+
+  /* ── REPRESENTANTE ── */
+  .repr-toggle {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px;
+    background: #F8FAFC;
+    border: 1.5px dashed #CBD5E0;
+    border-radius: 10px; cursor: pointer;
+    margin-bottom: 16px; font-size: 13px;
+    color: #4A5568; transition: all .2s;
+  }
+  .repr-toggle:hover { border-color: #9A7820; color: #7A5F18; background: #FBF5E6; }
+  .repr-toggle input[type=checkbox] { accent-color: var(--gold); width: 16px; height: 16px; }
+  .repr-section {
+    background: #FBF5E6;
+    border: 1px solid #C9A84C;
+    border-radius: 12px; padding: 20px;
+    margin-bottom: 20px;
+  }
+  .repr-section h4 {
+    font-size: 13px; font-weight: 700; color: #7A5F18;
+    margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* ── DOCUMENT SELECTOR ── */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600;
+    color: #0F3460; margin-bottom: 6px;
+  }
+  .section-sub {
+    font-size: 13px; color: #64748B; margin-bottom: 20px;
+  }
+  .doc-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .doc-card {
+    background: #FFFFFF;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 12px; padding: 16px;
+    cursor: pointer; transition: all .2s;
+    position: relative;
+    box-shadow: 0 1px 4px rgba(15,52,96,0.06);
+  }
+  .doc-card:hover { border-color: #9A7820; background: #FBF5E6; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(154,120,32,0.12); }
+  .doc-card.selected {
+    border-color: #9A7820;
+    background: #FBF5E6;
+    box-shadow: 0 0 0 3px rgba(154,120,32,0.15);
+  }
+  .doc-card .check {
+    position: absolute; top: 10px; right: 10px;
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid #CBD5E0;
+    background: #F8FAFC;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; transition: all .2s;
+  }
+  .doc-card.selected .check {
+    background: #9A7820; border-color: #9A7820; color: #fff;
+  }
+  .doc-card .doc-icon { font-size: 24px; margin-bottom: 10px; }
+  .doc-card .doc-type {
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    color: #94A3B8; margin-bottom: 5px;
+  }
+  .doc-card .doc-name {
+    font-size: 13px; font-weight: 500; color: #1A1A2E;
+    line-height: 1.3;
+  }
+  .doc-category {
+    font-size: 11px; font-weight: 700; color: #9A7820;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin: 20px 0 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .doc-category::after {
+    content: ''; flex: 1; height: 1px;
+    background: #DDE1E8;
+  }
+
+  /* ── PREVIEW / GENERATED DOC ── */
+  .doc-preview {
+    background: #fff;
+    border-radius: 12px;
+    padding: 48px 56px;
+    color: #1a1a1a;
+    font-family: 'Times New Roman', serif;
+    font-size: 13px;
+    line-height: 1.7;
+    box-shadow: var(--shadow-lg);
+    max-width: 860px;
+    margin: 0 auto 24px;
+  }
+  .doc-preview .letterhead {
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 20px; margin-bottom: 28px;
+  }
+  .doc-preview .letterhead h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--navy);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .doc-preview .letterhead p {
+    font-size: 11px; color: #666; margin-top: 4px;
+  }
+  .doc-preview .doc-title {
+    text-align: center;
+    font-weight: bold; font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+    color: var(--navy);
+  }
+  .doc-preview .field-table {
+    width: 100%; border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 12px;
+  }
+  .doc-preview .field-table td {
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+  }
+  .doc-preview .field-table td:first-child {
+    font-weight: bold; width: 140px;
+    background: #f8f6f0; color: var(--navy);
+  }
+  .doc-preview p { margin-bottom: 12px; text-align: justify; }
+  .doc-preview .signature-area {
+    margin-top: 40px;
+    display: flex; justify-content: space-around;
+    text-align: center;
+  }
+  .doc-preview .sig-line {
+    border-top: 1px solid #333;
+    padding-top: 8px; font-size: 11px;
+    width: 200px;
+  }
+
+  /* ── D4SIGN PANEL ── */
+  .d4sign-panel {
+    background: #FFFFFF;
+    border: 1px solid #DDE1E8;
+    border-radius: 16px; padding: 24px;
+    box-shadow: 0 2px 12px rgba(15,52,96,0.07);
+  }
+  .d4sign-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 20px;
+  }
+  .d4sign-logo {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .d4sign-info h3 { font-size: 16px; font-weight: 600; color: #0F3460; }
+  .d4sign-info p { font-size: 12px; color: #64748B; }
+  .d4sign-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group label {
+    font-size: 11px; font-weight: 700; color: #64748B;
+    text-transform: uppercase; letter-spacing: 1px;
+    display: block; margin-bottom: 6px;
+  }
+  .form-group input, .form-group select {
+    width: 100%; background: #F8FAFC;
+    border: 1px solid #CBD5E0;
+    border-radius: 8px; padding: 10px 12px;
+    font-size: 13px; color: #1A1A2E;
+    font-family: 'DM Sans', sans-serif; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: #9A7820; background: #FBF5E6;
+    box-shadow: 0 0 0 3px rgba(154,120,32,0.1);
+  }
+  .form-group select option { background: #FFFFFF; color: #1A1A2E; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  /* ── PROGRESS STEPPER ── */
+  .stepper {
+    display: flex; align-items: center;
+    gap: 0; margin-bottom: 32px;
+  }
+  .step {
+    display: flex; align-items: center; gap: 10px;
+    flex: 1;
+  }
+  .step-circle {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+    border: 2px solid #CBD5E0;
+    color: #94A3B8; flex-shrink: 0;
+    transition: all .3s;
+    background: #FFFFFF;
+  }
+  .step.done .step-circle {
+    background: #9A7820; border-color: #9A7820;
+    color: #fff;
+  }
+  .step.active .step-circle {
+    border-color: #9A7820; color: #9A7820;
+    box-shadow: 0 0 0 4px rgba(154,120,32,0.12);
+    background: #FBF5E6;
+  }
+  .step-label { font-size: 12px; color: #94A3B8; }
+  .step.active .step-label { color: #9A7820; font-weight: 600; }
+  .step.done .step-label { color: #4A5568; }
+  .step-line {
+    flex: 1; height: 1px;
+    background: #E2E8F0;
+    transition: background .3s;
+  }
+  .step-line.done { background: #9A7820; }
+
+  /* ── TOAST ── */
+  .toast-container {
+    position: fixed; bottom: 24px; right: 24px;
+    display: flex; flex-direction: column; gap: 8px;
+    z-index: 9999;
+  }
+  .toast {
+    background: #FFFFFF;
+    border: 1px solid #DDE1E8;
+    border-radius: 10px; padding: 12px 18px;
+    font-size: 13px; color: #1A1A2E;
+    box-shadow: 0 8px 24px rgba(15,52,96,0.15);
+    display: flex; align-items: center; gap: 10px;
+    animation: slideIn .3s ease;
+    min-width: 300px;
+  }
+  .toast.success { border-left: 4px solid #2ECC71; }
+  .toast.error { border-left: 4px solid #E74C3C; }
+  @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+  /* ── LOADER ── */
+  .loader {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px;
+  }
+  .summary-table th {
+    padding: 10px 14px; text-align: left;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: #94A3B8;
+    border-bottom: 1px solid #E2E8F0;
+    background: #F8FAFC;
+  }
+  .summary-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #F0F2F5;
+    color: #1A1A2E;
+  }
+  .summary-table tr:hover td { background: #FBF5E6; }
+  .badge {
+    display: inline-flex; align-items: center;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 500;
+  }
+  .badge-pending { background: rgba(243,156,18,0.15); color: #F39C12; }
+  .badge-done { background: rgba(46,204,113,0.15); color: #2ECC71; }
+  .badge-error { background: rgba(192,57,43,0.15); color: #E74C3C; }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: #E2E8F0; margin: 24px 0; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #CBD5E0; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+  /* ── CHECKLIST MODULE ── */
+  .checklist-header { display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:24px; }
+  .checklist-select-area { display:flex;flex-direction:column;gap:10px;min-width:260px; }
+  .checklist-select-area label { font-size:11px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:1px; }
+  .checklist-select-area select { background:#F8FAFC;border:1px solid #CBD5E0;border-radius:8px;padding:10px 14px;font-size:14px;color:var(--white);font-family:'DM Sans',sans-serif;outline:none;cursor:pointer; }
+  .checklist-select-area select:focus { border-color:var(--gold); }
+  .checklist-select-area select option { background:var(--dark2); }
+  .checklist-stats { display:flex;gap:14px;flex-wrap:wrap;flex:1;align-items:flex-start;padding-top:24px; }
+  .stat-pill { display:flex;flex-direction:column;align-items:center;background:#FFFFFF;border:1px solid #DDE1E8;box-shadow:0 1px 4px rgba(15,52,96,0.06);border-radius:12px;padding:12px 20px;min-width:90px; }
+  .stat-pill .stat-num { font-family:'Playfair Display',serif;font-size:28px;font-weight:700;line-height:1; }
+  .stat-pill .stat-label { font-size:11px;color:var(--gray);margin-top:4px; }
+  .stat-pill.ok .stat-num { color:#2ECC71; }
+  .stat-pill.warn .stat-num { color:#F39C12; }
+  .stat-pill.err .stat-num { color:#E74C3C; }
+  .stat-pill.total .stat-num { color:var(--gold-light); }
+  .checklist-category { background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;margin-bottom:16px;overflow:hidden; }
+  .checklist-cat-header { display:flex;align-items:center;justify-content:space-between;padding:14px 20px;cursor:pointer;background:#FBF5E6;border-bottom:1px solid #DDE1E8;user-select:none; }
+  .checklist-cat-header:hover { background:#F5EED6; }
+  .checklist-cat-title { font-size:13px;font-weight:700;color:#7A5F18;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:10px; }
+  .checklist-cat-progress { display:flex;align-items:center;gap:10px; }
+  .progress-bar { width:100px;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden; }
+  .progress-fill { height:100%;background:var(--gold);border-radius:3px;transition:width .4s ease; }
+  .progress-fill.complete { background:#2ECC71; }
+  .checklist-items { padding:12px 20px 8px; }
+  .checklist-item { display:flex;align-items:flex-start;gap:12px;padding:8px 10px;border-radius:8px;transition:background .15s;cursor:pointer; }
+  .checklist-item:hover { background:#F8FAFC; }
+  .checklist-item input[type=checkbox] { accent-color:var(--gold);width:16px;height:16px;flex-shrink:0;margin-top:2px;cursor:pointer; }
+  .checklist-item .item-label { font-size:13px;color:#1A1A2E;line-height:1.4;flex:1; }
+  .checklist-item.checked .item-label { color:#94A3B8;text-decoration:line-through;text-decoration-color:rgba(107,114,128,0.5); }
+  .item-tag { font-size:10px;padding:2px 7px;border-radius:10px;flex-shrink:0;font-weight:600; }
+  .item-tag.urgent { background:rgba(192,57,43,0.2);color:#E74C3C; }
+  .item-tag.optional { background:rgba(52,152,219,0.15);color:#5DADE2; }
+  .item-tag.family { background:rgba(155,89,182,0.15);color:#C39BD3; }
+  .checklist-notes { padding:0 20px 16px; }
+  .checklist-notes textarea { width:100%;background:#F8FAFC;border:1px solid #CBD5E0;border-radius:8px;padding:10px 12px;font-size:12px;color:var(--white);font-family:'DM Sans',sans-serif;resize:vertical;min-height:60px;outline:none; }
+  .checklist-notes textarea:focus { border-color:var(--gold); }
+  .checklist-notes textarea::placeholder { color:var(--gray); }
+  .checklist-actions { display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap; }
+  .missing-alert { background:#FEF2F2;border:1px solid #FECACA;border-radius:12px;padding:16px 20px;margin-bottom:20px; }
+  .missing-alert h4 { font-size:13px;font-weight:700;color:#C0392B;margin-bottom:10px; }
+  .missing-alert ul { list-style:none;padding:0; }
+  .missing-alert ul li { font-size:12px;color:#C0392B;padding:3px 0;display:flex;align-items:center;gap:6px; }
+  .missing-alert ul li::before { content:'✗';color:#E74C3C;font-weight:bold; }
+  .checklist-collapsed .checklist-items,.checklist-collapsed .checklist-notes { display:none; }
+  .collapse-arrow { font-size:12px;color:#94A3B8;transition:transform .2s; }
+  .checklist-collapsed .collapse-arrow { transform:rotate(-90deg); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ SIDEBAR ══ -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>Marcela Pena<br>Advocacia</h1>
+    <p>Kit Postulatório Digital</p>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Fluxo</div>
+    <button class="nav-item active" onclick="goScreen('promad')" id="nav-promad">
+      <span class="icon">🔗</span> 1. Buscar no PROMAD
+    </button>
+    <button class="nav-item" onclick="goScreen('cliente')" id="nav-cliente">
+      <span class="icon">👤</span> 2. Dados do Cliente
+    </button>
+    <button class="nav-item" onclick="goScreen('documentos')" id="nav-documentos">
+      <span class="icon">📋</span> 3. Selecionar Documentos
+    </button>
+    <button class="nav-item" onclick="goScreen('preview')" id="nav-preview">
+      <span class="icon">👁️</span> 4. Revisar
+    </button>
+    <button class="nav-item" onclick="goScreen('assinatura')" id="nav-assinatura">
+      <span class="icon">✍️</span> 5. Enviar D4Sign
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Checklist</div>
+    <button class="nav-item" id="nav-checklist">
+      <span class="icon">✅</span> Checklist de Documentos
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Atalhos</div>
+    <button class="nav-item" onclick="clearAll()">
+      <span class="icon">🗑️</span> Limpar tudo
+    </button>
+    <button class="nav-item" onclick="printDoc()">
+      <span class="icon">🖨️</span> Imprimir documentos
+    </button>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="status-pill" id="promad-status-pill">
+      <div class="status-dot disconnected" id="promad-dot"></div>
+      <span id="promad-status-text">PROMAD desconectado</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════ MAIN ══ -->
+<div class="main">
+  <div class="topbar">
+    <h2 id="topbar-title">Conectar ao PROMAD</h2>
+    <button class="btn btn-outline" onclick="prevStep()">← Anterior</button>
+    <button class="btn btn-gold" id="btn-next" onclick="nextStep()">Próximo →</button>
+  </div>
+
+  <div class="content">
+
+    <!-- ── STEPPER ── -->
+    <div class="stepper">
+      <div class="step active" id="st1"><div class="step-circle" id="sc1">1</div><div class="step-label">PROMAD</div></div>
+      <div class="step-line" id="sl1"></div>
+      <div class="step" id="st2"><div class="step-circle" id="sc2">2</div><div class="step-label">Cliente</div></div>
+      <div class="step-line" id="sl2"></div>
+      <div class="step" id="st3"><div class="step-circle" id="sc3">3</div><div class="step-label">Documentos</div></div>
+      <div class="step-line" id="sl3"></div>
+      <div class="step" id="st4"><div class="step-circle" id="sc4">4</div><div class="step-label">Revisão</div></div>
+      <div class="step-line" id="sl4"></div>
+      <div class="step" id="st5"><div class="step-circle" id="sc5">5</div><div class="step-label">D4Sign</div></div>
+    </div>
+
+    <!-- ════════════════ SCREEN 1: PROMAD ════════════════ -->
+    <div class="screen active" id="screen-promad">
+      <!-- PROMAD STATUS CARD -->
+      <div style="display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap">
+        <div style="flex:1;min-width:280px;background:#FBF5E6;border:1px solid #C9A84C;border-radius:14px;padding:20px 24px">
+          <div style="font-size:12px;font-weight:600;color:var(--gold-light);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">📋 Como funciona</div>
+          <ol style="font-size:13px;color:#7A5F18;line-height:1.9;padding-left:18px;margin:0">
+            <li>Clique em <strong style="color:#0F3460;font-weight:600">"Abrir PROMAD Integra"</strong> abaixo</li>
+            <li>Faça login com seu usuário e senha</li>
+            <li>Localize o contrato do cliente desejado</li>
+            <li>Selecione e copie todos os dados (<kbd style="background:rgba(255,255,255,0.1);padding:1px 6px;border-radius:4px;font-size:11px">Ctrl+A</kbd> → <kbd style="background:rgba(255,255,255,0.1);padding:1px 6px;border-radius:4px;font-size:11px">Ctrl+C</kbd>)</li>
+            <li>Volte aqui e clique em <strong style="color:#0F3460;font-weight:600">"Colar e Extrair Dados"</strong></li>
+          </ol>
+        </div>
+        <div style="flex:1;min-width:280px;background:#E8F5EE;border:1px solid #A8D5BC;border-radius:14px;padding:20px 24px">
+          <div style="font-size:12px;font-weight:600;color:#2ECC71;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">💡 Dica rápida</div>
+          <p style="font-size:13px;color:#1A6B45;line-height:1.7;margin:0">O PROMAD Integra é um sistema externo que, por segurança, não permite carregamento direto em outros sites. Por isso, usamos o fluxo de copiar e colar os dados do contrato. É rápido e garante que todos os campos sejam preenchidos corretamente!</p>
+        </div>
+      </div>
+
+      <!-- MAIN ACTIONS -->
+      <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;align-items:stretch">
+        
+        <!-- Open PROMAD button - primary -->
+        <div style="flex:1;min-width:260px;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px">
+          <div style="font-size:36px">🔗</div>
+          <div style="font-size:15px;font-weight:600;color:var(--white)">Acessar PROMAD Integra</div>
+          <div style="font-size:12px;color:var(--gray)">Abre em nova aba — faça login e copie os dados do cliente</div>
+          <a href="https://integra.adv.br/login-integra.asp" target="_blank"
+            class="btn btn-gold" style="text-decoration:none;width:100%;justify-content:center;font-size:14px;padding:12px 20px">
+            🚀 Abrir PROMAD Integra
+          </a>
+          <div style="font-size:11px;color:var(--gray);font-family:monospace">integra.adv.br</div>
+        </div>
+
+        <!-- Paste area -->
+        <div style="flex:2;min-width:320px;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:13px;font-weight:600;color:var(--white)">📋 Cole aqui os dados copiados do PROMAD</div>
+          <textarea id="promad-paste-area"
+            style="flex:1;min-height:130px;background:#F8FAFC;border:1px solid #CBD5E0;border-radius:8px;padding:12px;font-size:12px;color:#1A1A2E;font-family:'DM Sans',sans-serif;resize:vertical;outline:none;line-height:1.6"
+            placeholder="Cole aqui o texto copiado da página do contrato no PROMAD (Ctrl+A → Ctrl+C na página do cliente, depois Ctrl+V aqui)..."
+            onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-gold" style="flex:1;justify-content:center" onclick="extractFromPaste()">
+              ⚡ Extrair Dados Automaticamente
+            </button>
+            <button class="btn btn-ghost" onclick="fillManually()">
+              ✏️ Preencher Manual
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK MANUAL ENTRY shortcut -->
+      <div style="text-align:center;padding:10px 0">
+        <span style="font-size:12px;color:var(--gray)">Já tem os dados em mãos? &nbsp;</span>
+        <button class="btn btn-outline" style="font-size:12px;padding:6px 16px" onclick="fillManually()">
+          Preencher campos manualmente →
+        </button>
+      </div>
+    </div>
+
+    <!-- ════════════════ SCREEN 2: CLIENTE ════════════════ -->
+    <div class="screen" id="screen-cliente">
+      <div class="section-title">Dados do Cliente</div>
+      <div class="section-sub">Verifique e complete os dados capturados do PROMAD</div>
+
+      <div class="client-card">
+        <div class="client-card-header">
+          <div>
+            <div class="client-name" id="display-nome">—</div>
+            <div style="font-size:12px;color:var(--gray);margin-top:4px">CPF: <span id="display-cpf">—</span></div>
+          </div>
+          <div class="client-proc" id="display-proc">Nº —</div>
+        </div>
+
+        <div class="client-fields">
+          <div class="client-field"><label>Nº Processo/Contrato</label>
+            <input type="text" id="f-proc" oninput="updateDisplay()"></div>
+          <div class="client-field"><label>Nome Completo</label>
+            <input type="text" id="f-nome" oninput="updateDisplay()"></div>
+          <div class="client-field"><label>CPF</label>
+            <input type="text" id="f-cpf" oninput="updateDisplay()"></div>
+          <div class="client-field"><label>RG</label>
+            <input type="text" id="f-rg"></div>
+          <div class="client-field"><label>Nacionalidade</label>
+            <input type="text" id="f-nac" value="brasileiro(a)"></div>
+          <div class="client-field"><label>Estado Civil</label>
+            <select id="f-ecivil">
+              <option>Solteiro(a)</option><option>Casado(a)</option>
+              <option>Divorciado(a)</option><option>Viúvo(a)</option>
+              <option>União Estável</option>
+            </select></div>
+          <div class="client-field"><label>Profissão</label>
+            <input type="text" id="f-prof"></div>
+          <div class="client-field"><label>Data de Nascimento</label>
+            <input type="date" id="f-nasc"></div>
+          <div class="client-field" style="grid-column:1/-1"><label>Endereço</label>
+            <input type="text" id="f-end" placeholder="Logradouro, número, complemento"></div>
+          <div class="client-field"><label>Bairro</label>
+            <input type="text" id="f-bairro"></div>
+          <div class="client-field"><label>Cidade</label>
+            <input type="text" id="f-cidade" value="Rio de Janeiro"></div>
+          <div class="client-field"><label>UF</label>
+            <input type="text" id="f-uf" value="RJ" maxlength="2" style="text-transform:uppercase"></div>
+          <div class="client-field"><label>CEP</label>
+            <input type="text" id="f-cep"></div>
+          <div class="client-field"><label>Telefone</label>
+            <input type="text" id="f-tel"></div>
+          <div class="client-field"><label>WhatsApp <span style="font-size:10px;color:#2ECC71;font-weight:600">● D4Sign</span></label>
+            <input type="text" id="f-whatsapp" placeholder="+55 21 99999-9999" oninput="formatWhatsApp(this)">
+            <div style="font-size:10px;color:#64748B;margin-top:3px">Com DDD e código do país (+55). Ex: +55 21 99009-2951</div>
+          </div>
+          <div class="client-field"><label>E-mail (para D4Sign)</label>
+            <input type="email" id="f-email" placeholder="Para envio de assinatura digital"></div>
+        </div>
+      </div>
+
+      <!-- REPRESENTANTE LEGAL -->
+      <label class="repr-toggle">
+        <input type="checkbox" id="toggle-repr" onchange="toggleRepr()">
+        <span>👨‍👩‍👧 Incluir Representante Legal (menor ou incapaz)</span>
+      </label>
+
+      <div id="repr-section" style="display:none" class="repr-section">
+        <h4>⚖️ Dados do Representante Legal</h4>
+        <div class="client-fields">
+          <div class="client-field"><label>Nome do Representante</label>
+            <input type="text" id="r-nome"></div>
+          <div class="client-field"><label>CPF</label>
+            <input type="text" id="r-cpf"></div>
+          <div class="client-field"><label>RG</label>
+            <input type="text" id="r-rg"></div>
+          <div class="client-field"><label>Nacionalidade</label>
+            <input type="text" id="r-nac" value="brasileiro(a)"></div>
+          <div class="client-field"><label>Estado Civil</label>
+            <select id="r-ecivil">
+              <option>Solteiro(a)</option><option>Casado(a)</option>
+              <option>Divorciado(a)</option><option>Viúvo(a)</option>
+            </select></div>
+          <div class="client-field"><label>Profissão</label>
+            <input type="text" id="r-prof"></div>
+          <div class="client-field" style="grid-column:1/-1"><label>Endereço</label>
+            <input type="text" id="r-end"></div>
+          <div class="client-field"><label>Relação com o cliente</label>
+            <select id="r-rel">
+              <option>Pai/Mãe</option><option>Cônjuge</option>
+              <option>Curador</option><option>Tutor</option><option>Outro</option>
+            </select></div>
+          <div class="client-field"><label>E-mail (para D4Sign)</label>
+            <input type="email" id="r-email"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════ SCREEN 3: DOCUMENTOS ════════════════ -->
+    <div class="screen" id="screen-documentos">
+      <div class="section-title">Selecionar Documentos</div>
+      <div class="section-sub">Escolha os documentos a gerar. Todos serão unidos em um único PDF para assinatura.</div>
+
+      <div class="doc-category">Procurações</div>
+      <div class="doc-grid">
+        <div class="doc-card" id="doc-proc-judicial" onclick="toggleDoc('proc-judicial')">
+          <div class="check">✓</div>
+          <div class="doc-icon">⚖️</div>
+          <div class="doc-type">Procuração</div>
+          <div class="doc-name">Procuração Judicial</div>
+        </div>
+        <div class="doc-card" id="doc-proc-admin" onclick="toggleDoc('proc-admin')">
+          <div class="check">✓</div>
+          <div class="doc-icon">🏛️</div>
+          <div class="doc-type">Procuração</div>
+          <div class="doc-name">Procuração Administrativa</div>
+        </div>
+        <div class="doc-card" id="doc-proc-curatela" onclick="toggleDoc('proc-curatela')">
+          <div class="check">✓</div>
+          <div class="doc-icon">🛡️</div>
+          <div class="doc-type">Procuração</div>
+          <div class="doc-name">Procuração de Curatela</div>
+        </div>
+      </div>
+
+      <div class="doc-category">Declarações</div>
+      <div class="doc-grid">
+        <div class="doc-card" id="doc-hipossu" onclick="toggleDoc('hipossu')">
+          <div class="check">✓</div>
+          <div class="doc-icon">📜</div>
+          <div class="doc-type">Declaração</div>
+          <div class="doc-name">Hipossuficiência</div>
+        </div>
+        <div class="doc-card" id="doc-residencia" onclick="toggleDoc('residencia')">
+          <div class="check">✓</div>
+          <div class="doc-icon">🏠</div>
+          <div class="doc-type">Declaração</div>
+          <div class="doc-name">Residência Própria</div>
+        </div>
+        <div class="doc-card" id="doc-nao-antecip" onclick="toggleDoc('nao-antecip')">
+          <div class="check">✓</div>
+          <div class="doc-icon">💰</div>
+          <div class="doc-type">Declaração</div>
+          <div class="doc-name">Não Antecipação de Honorários</div>
+        </div>
+        <div class="doc-card" id="doc-renuncia" onclick="toggleDoc('renuncia')">
+          <div class="check">✓</div>
+          <div class="doc-icon">📃</div>
+          <div class="doc-type">Declaração</div>
+          <div class="doc-name">Termo de Renúncia</div>
+        </div>
+      </div>
+
+      <div class="doc-category">Contratos de Honorários</div>
+      <div class="doc-grid">
+        <div class="doc-card" id="doc-auxdoenca" onclick="toggleDoc('auxdoenca')">
+          <div class="check">✓</div>
+          <div class="doc-icon">🏥</div>
+          <div class="doc-type">Contrato</div>
+          <div class="doc-name">Auxílio Doença</div>
+        </div>
+        <div class="doc-card" id="doc-aposentadoria" onclick="toggleDoc('aposentadoria')">
+          <div class="check">✓</div>
+          <div class="doc-icon">👴</div>
+          <div class="doc-type">Contrato</div>
+          <div class="doc-name">Aposentadoria</div>
+        </div>
+        <div class="doc-card" id="doc-bpcloas" onclick="toggleDoc('bpcloas')">
+          <div class="check">✓</div>
+          <div class="doc-icon">♿</div>
+          <div class="doc-type">Contrato</div>
+          <div class="doc-name">BPC / LOAS</div>
+        </div>
+        <div class="doc-card" id="doc-pensao" onclick="toggleDoc('pensao')">
+          <div class="check">✓</div>
+          <div class="doc-icon">🪦</div>
+          <div class="doc-type">Contrato</div>
+          <div class="doc-name">Pensão por Morte</div>
+        </div>
+        <div class="doc-card" id="doc-plan-br" onclick="toggleDoc('plan-br')">
+          <div class="check">✓</div>
+          <div class="doc-icon">📊</div>
+          <div class="doc-type">Contrato</div>
+          <div class="doc-name">Planejamento Previdenciário Brasil</div>
+        </div>
+        <div class="doc-card" id="doc-plan-ext" onclick="toggleDoc('plan-ext')">
+          <div class="check">✓</div>
+          <div class="doc-icon">🌍</div>
+          <div class="doc-type">Contrato</div>
+          <div class="doc-name">Planejamento Previdenciário Exterior</div>
+        </div>
+      </div>
+
+      <div id="sel-count" style="font-size:13px;color:var(--gold-light);margin-top:8px">
+        0 documentos selecionados
+      </div>
+    </div>
+
+    <!-- ════════════════ SCREEN 4: PREVIEW ════════════════ -->
+    <div class="screen" id="screen-preview">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div class="section-title">Revisão dos Documentos</div>
+          <div class="section-sub">Confira o conteúdo antes de enviar para assinatura</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost" onclick="printDoc()">🖨️ Imprimir</button>
+          <button class="btn btn-outline" onclick="goScreen('documentos')">✏️ Editar seleção</button>
+        </div>
+      </div>
+      <div id="preview-container"></div>
+    </div>
+
+    <!-- ════════════════ SCREEN 5: D4SIGN ════════════════ -->
+    <div class="screen" id="screen-assinatura">
+      <div class="section-title">Enviar para Assinatura Digital</div>
+      <div class="section-sub">Configure o envio via D4Sign — plataforma de assinatura eletrônica com validade jurídica</div>
+
+      <!-- API KEY HELP BOX -->
+      <div id="d4-help-box" style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:14px;padding:20px 24px;margin-bottom:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:13px;font-weight:600;color:#5DADE2;display:flex;align-items:center;gap:8px">
+            🔑 Como obter sua Chave API do D4Sign
+          </div>
+          <button onclick="document.getElementById('d4-help-box').style.display='none'"
+            style="background:none;border:none;color:var(--gray);cursor:pointer;font-size:16px;padding:0">✕</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">
+          <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px">
+            <div style="font-size:11px;font-weight:700;color:#5DADE2;margin-bottom:6px">① CRIAR CONTA</div>
+            <p style="font-size:12px;color:#4A5568;margin:0;line-height:1.6">Acesse <a href="https://secure.d4sign.com.br/criar" target="_blank" style="color:#5DADE2">secure.d4sign.com.br/criar</a> e cadastre-se com o e-mail do escritório</p>
+          </div>
+          <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px">
+            <div style="font-size:11px;font-weight:700;color:#5DADE2;margin-bottom:6px">② SOLICITAR ATIVAÇÃO</div>
+            <p style="font-size:12px;color:#4A5568;margin:0;line-height:1.6">Envie e-mail para <strong style="color:#0F3460;font-weight:600"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="94e7e1e4fbe6e0f1d4f0a0e7fdf3fabaf7fbf9baf6e6">[email&#160;protected]</a></strong> pedindo ativação da API para sua conta</p>
+          </div>
+          <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px">
+            <div style="font-size:11px;font-weight:700;color:#5DADE2;margin-bottom:6px">③ PEGAR O TOKEN</div>
+            <p style="font-size:12px;color:#4A5568;margin:0;line-height:1.6">Faça login na D4Sign → clique no menu (canto superior direito) → opção <strong style="color:#0F3460;font-weight:600">"Dev (API)"</strong></p>
+          </div>
+          <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px">
+            <div style="font-size:11px;font-weight:700;color:#5DADE2;margin-bottom:6px">④ UUID DO COFRE</div>
+            <p style="font-size:12px;color:#4A5568;margin:0;line-height:1.6">Na mesma tela "Dev (API)" ou em <strong style="color:#0F3460;font-weight:600">Cofres</strong>, copie o UUID da pasta onde os documentos serão salvos</p>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid #BFDBFE;display:flex;gap:10px;flex-wrap:wrap">
+          <a href="https://secure.d4sign.com.br/criar" target="_blank" class="btn btn-outline" style="text-decoration:none;font-size:12px;padding:7px 14px;border-color:rgba(52,152,219,0.4);color:#5DADE2">
+            🚀 Criar conta D4Sign
+          </a>
+          <a href="https://sandbox.d4sign.com.br/criar" target="_blank" class="btn btn-ghost" style="text-decoration:none;font-size:12px;padding:7px 14px">
+            🧪 Criar conta Sandbox (testes gratuitos)
+          </a>
+          <a href="https://ajuda.d4sign.com.br/introdu%C3%A7%C3%A3o-%C3%A0-api-d4sign-leia-antes-de-come%C3%A7ar" target="_blank" class="btn btn-ghost" style="text-decoration:none;font-size:12px;padding:7px 14px">
+            📖 Documentação da API
+          </a>
+        </div>
+      </div>
+
+      <div class="d4sign-panel" style="margin-bottom:20px">
+        <div class="d4sign-header">
+          <div class="d4sign-logo">✍️</div>
+          <div class="d4sign-info">
+            <h3>D4Sign — Configuração de Envio</h3>
+            <p>Preencha as credenciais e os signatários abaixo</p>
+          </div>
+          <button onclick="document.getElementById('d4-help-box').style.display='block'"
+            style="margin-left:auto;background:rgba(52,152,219,0.15);border:1px solid rgba(52,152,219,0.3);border-radius:8px;padding:7px 14px;color:#5DADE2;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif">
+            🔑 Como obter a Chave API?
+          </button>
+        </div>
+
+        <!-- CREDENTIALS -->
+        <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;margin-bottom:16px">
+          <div style="font-size:11px;font-weight:600;color:var(--gold-light);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">🔐 Credenciais da API</div>
+          <div class="d4sign-form">
+            <div class="form-group full" style="position:relative">
+              <label>Token API <span style="color:#E74C3C">*</span></label>
+              <div style="position:relative">
+                <input type="password" id="d4-apikey" placeholder="live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                  style="padding-right:44px"
+                  oninput="validateD4Fields();autoDetectEnv(this.value)">
+                <button onclick="toggleD4Pass('d4-apikey',this)"
+                  style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--gray);cursor:pointer;font-size:14px">👁️</button>
+              </div>
+              <div style="font-size:11px;color:var(--gray);margin-top:4px">
+                Encontre em: D4Sign → Menu superior direito → <strong style="color:#0F3460;font-weight:600">Dev (API)</strong> → Token API &nbsp;·&nbsp;
+                <span style="color:#7A5F18;font-weight:600">Após colar, clique em "Buscar Cofres" abaixo ↓</span>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Cofre (onde os documentos serão salvos) <span style="color:#E74C3C">*</span></label>
+              <div style="display:flex;gap:8px;align-items:flex-start">
+                <div style="flex:1">
+                  <select id="d4-safe-select" style="display:none;width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--white);font-family:'DM Sans',sans-serif;outline:none" onchange="onSafeSelected()">
+                    <option value="">— Selecione o cofre —</option>
+                  </select>
+                  <input type="text" id="d4-safe" placeholder="Cole o UUID do cofre ou use o botão ao lado →"
+                    oninput="extractUUIDFromInput(this)" onpaste="setTimeout(()=>extractUUIDFromInput(this),10)" style="width:100%">
+                </div>
+                <button id="btn-fetch-safes" onclick="fetchSafes()"
+                  class="btn btn-outline" style="white-space:nowrap;padding:10px 14px;font-size:12px;flex-shrink:0">
+                  🔍 Buscar Cofres
+                </button>
+              </div>
+              <div id="safe-hint" style="font-size:11px;color:#64748B;margin-top:6px">
+                Cole o Token API e clique em <strong style="color:#0F3460">"Buscar Cofres"</strong> — ou cole a <strong style="color:#0F3460">URL do cofre</strong> no campo ao lado (UUID extraído automaticamente)
+              </div>
+            </div>
+            <div class="form-group full" style="display:flex;align-items:center;gap:10px;margin-top:4px">
+              <label style="margin:0;white-space:nowrap">Ambiente:</label>
+              <select id="d4-env" onchange="validateD4Fields()" style="flex:1">
+                <option value="production">🟢 Produção — secure.d4sign.com.br (documentos com validade jurídica)</option>
+                <option value="sandbox">🧪 Sandbox — sandbox.d4sign.com.br (apenas testes, sem custo)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIGNATÁRIOS -->
+        <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;margin-bottom:16px">
+          <div style="font-size:11px;font-weight:600;color:var(--gold-light);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">✍️ Signatários</div>
+          <div class="d4sign-form">
+            <!-- CLIENTE -->
+            <div class="form-group" style="grid-column:1/-1">
+              <div style="font-size:11px;font-weight:700;color:#0F3460;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #E2E8F0">
+                👤 Cliente
+              </div>
+            </div>
+            <div class="form-group">
+              <label>E-mail do Cliente</label>
+              <input type="email" id="d4-email-cliente" placeholder="cliente@email.com" oninput="validateD4Fields()">
+            </div>
+            <div class="form-group">
+              <label>WhatsApp do Cliente <span style="font-size:10px;background:#E8F5EE;color:#1A6B45;padding:2px 6px;border-radius:8px;font-weight:600">CRÉDITO EXTRA</span></label>
+              <input type="text" id="d4-whatsapp-cliente" placeholder="+55 21 99999-9999"
+                oninput="formatWhatsApp(this)">
+              <div style="font-size:10px;color:#64748B;margin-top:3px">Opcional — requer créditos WhatsApp na D4Sign</div>
+            </div>
+            <div class="form-group">
+              <label>Tipo de assinatura — Cliente</label>
+              <select id="d4-tipo-cliente">
+                <option value="1">Assinar</option>
+                <option value="3" selected>Assinar como Parte</option>
+                <option value="2">Assinar como Testemunha</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Canal de envio — Cliente</label>
+              <select id="d4-canal-cliente">
+                <option value="email">📧 Apenas E-mail</option>
+                <option value="whatsapp">💬 Apenas WhatsApp</option>
+                <option value="ambos">📧 + 💬 E-mail e WhatsApp</option>
+              </select>
+            </div>
+
+            <!-- ADVOGADO -->
+            <div class="form-group" style="grid-column:1/-1">
+              <div style="font-size:11px;font-weight:700;color:#0F3460;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #E2E8F0;margin-top:8px">
+                ⚖️ Advogado
+              </div>
+            </div>
+            <div class="form-group">
+              <label>E-mail do Advogado</label>
+              <input type="email" id="d4-email-adv" value="marcela@marcelapena.adv.br">
+            </div>
+            <div class="form-group">
+              <label>Tipo de assinatura — Advogado</label>
+              <select id="d4-tipo-adv">
+                <option value="3" selected>Assinar como Parte</option>
+                <option value="1">Assinar</option>
+              </select>
+            </div>
+
+            <!-- REPRESENTANTE LEGAL -->
+            <div class="form-group" id="repr-email-group" style="display:none;grid-column:1/-1">
+              <div style="font-size:11px;font-weight:700;color:#0F3460;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #E2E8F0;margin-top:8px">
+                🛡️ Representante Legal
+              </div>
+            </div>
+            <div class="form-group" id="repr-email-field" style="display:none">
+              <label>E-mail do Representante</label>
+              <input type="email" id="d4-email-repr" placeholder="representante@email.com">
+            </div>
+            <div class="form-group" id="repr-whatsapp-field" style="display:none">
+              <label>WhatsApp do Representante</label>
+              <input type="text" id="d4-whatsapp-repr" placeholder="+55 21 99999-9999"
+                oninput="formatWhatsApp(this)">
+            </div>
+            <div class="form-group" id="repr-tipo-group" style="display:none">
+              <label>Tipo — Representante</label>
+              <select id="d4-tipo-repr">
+                <option value="3" selected>Assinar como Parte</option>
+                <option value="1">Assinar</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Mensagem para os signatários</label>
+              <input type="text" id="d4-msg" value="Prezado cliente, segue o kit postulatório para assinatura digital. Qualquer dúvida, entre em contato.">
+            </div>
+          </div>
+        </div>
+
+        <!-- VALIDATION STATUS -->
+        <div id="d4-validation-status" style="display:none;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:13px"></div>
+      </div>
+
+      <!-- RESUMO -->
+      <div class="d4sign-panel">
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:16px;color:var(--gold-light)">
+          📋 Resumo do Envio
+        </h3>
+        <table class="summary-table">
+          <thead>
+            <tr><th>Documento</th><th>Status</th></tr>
+          </thead>
+          <tbody id="summary-body"></tbody>
+        </table>
+        <div class="divider"></div>
+        <div style="display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap">
+          <button class="btn btn-ghost" onclick="downloadPDF()">⬇️ Baixar / Imprimir PDF</button>
+          <button class="btn btn-success" id="btn-send-d4" onclick="sendToD4Sign()" disabled>
+            ✍️ Enviar para D4Sign
+          </button>
+        </div>
+      </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ════════════════ CHECKLIST OVERLAY ════════════════ -->
+<div id="screen-checklist-overlay" style="display:none;position:fixed;top:0;left:260px;right:0;bottom:0;background:#F4F6F9;overflow-y:auto;z-index:200;padding:32px;">
+
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
+    <button class="btn btn-ghost" onclick="closeChecklist()" style="font-size:18px;padding:8px 14px;">← Voltar</button>
+    <div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white)">Checklist de Documentos</h2>
+      <p style="font-size:13px;color:var(--gray);margin-top:2px">Gerencie e acompanhe os documentos de cada processo</p>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-outline" onclick="printChecklist()">🖨️ Imprimir</button>
+      <button class="btn btn-gold" onclick="generateMissingMsg()">📱 Cobrar Documentos</button>
+    </div>
+  </div>
+
+  <div class="checklist-header">
+    <div class="checklist-select-area">
+      <label>Tipo de Processo</label>
+      <select id="cl-tipo" onchange="renderChecklist()">
+        <option value="">— Selecione o tipo de processo —</option>
+        <optgroup label="Benefícios INSS">
+          <option value="aposentadoria_contrib">Aposentadoria por Idade / Tempo de Contribuição</option>
+          <option value="aposentadoria_defic">Aposentadoria — Portador de Deficiência Física</option>
+          <option value="aposentadoria_especial">Aposentadoria Especial (Insalubridade/Periculosidade)</option>
+          <option value="aposentadoria_acident">Aposentadoria Acidentária</option>
+          <option value="revisao_contrib">Revisão de Aposentadoria — Idade/Tempo de Contribuição</option>
+          <option value="revisao_invalidez">Revisão de Aposentadoria — Invalidez/Acidentária</option>
+          <option value="auxdoenca">Auxílio Doença / Aposentadoria por Invalidez</option>
+          <option value="auxdoenca_acident">Auxílio Doença / Aposentadoria Acidentária</option>
+          <option value="auxacidente">Auxílio Acidente</option>
+          <option value="majoracao25">Pedido de Majoração de 25%</option>
+          <option value="bpcloas_idade">BPC/LOAS — Idade (65 anos ou mais)</option>
+          <option value="bpcloas_defic">BPC/LOAS — Deficiência / Incapacidade</option>
+          <option value="bpcloas_avulso">BPC/LOAS — Trabalhador Avulso</option>
+          <option value="pensao_conjuge">Pensão por Morte — Cônjuge / Companheiro(a)</option>
+          <option value="pensao_pais">Pensão por Morte — Pais / Avós / Irmãos</option>
+        </optgroup>
+        <optgroup label="Servidor Público">
+          <option value="servidor_aposent">Servidor Público — Aposentadoria Compulsória/Voluntária</option>
+          <option value="servidor_especial">Servidor Público — Aposentadoria Especial</option>
+          <option value="servidor_invalidez">Servidor Público — Invalidez / Auxílio Doença / Deficiência</option>
+        </optgroup>
+        <optgroup label="Outros">
+          <option value="curatela">Curatela</option>
+          <option value="alvara">Alvará Judicial (FGTS / PIS / PASEP)</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="checklist-stats" id="cl-stats" style="display:none">
+      <div class="stat-pill total"><div class="stat-num" id="st-total">0</div><div class="stat-label">Total</div></div>
+      <div class="stat-pill ok"><div class="stat-num" id="st-ok">0</div><div class="stat-label">OK</div></div>
+      <div class="stat-pill warn"><div class="stat-num" id="st-pend">0</div><div class="stat-label">Faltam</div></div>
+      <div class="stat-pill err"><div class="stat-num" id="st-urg">0</div><div class="stat-label">Urgente</div></div>
+    </div>
+  </div>
+
+  <div id="cl-missing-alert" style="display:none" class="missing-alert">
+    <h4>⚠️ Documentos obrigatórios em falta:</h4>
+    <ul id="cl-missing-list"></ul>
+  </div>
+
+  <div class="checklist-actions" id="cl-actions" style="display:none">
+    <button class="btn btn-ghost" onclick="checkAll()">✓ Marcar todos</button>
+    <button class="btn btn-ghost" onclick="uncheckAll()">○ Desmarcar todos</button>
+    <span style="margin-left:auto;font-size:12px;color:var(--gold-light);font-weight:500" id="cl-progress-label"></span>
+  </div>
+
+  <div id="cl-body"></div>
+
+  <div id="cl-obs-area" style="display:none">
+    <div class="checklist-category">
+      <div class="checklist-cat-header" onclick="toggleCat(this)">
+        <div class="checklist-cat-title">💬 <span>Observações do Processo</span></div>
+        <span class="collapse-arrow">▼</span>
+      </div>
+      <div class="checklist-notes">
+        <textarea id="cl-notes" placeholder="Anotações sobre documentos pendentes, situação do cliente, próximos passos, datas de entrega..."></textarea>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ═══════════════════════════════════════ JAVASCRIPT ════ -->
+<script>
+// ─── STATE ───────────────────────────────────────────────
+let currentStep = 1;
+let selectedDocs = new Set();
+let clientData = {};
+let reprData = {};
+let hasRepr = false;
+
+const STEPS = ['promad','cliente','documentos','preview','assinatura'];
+const ADV = {
+  nome: 'MARCELA DA SILVA PENA',
+  qualif: 'brasileira, casada, advogada, inscrita na OAB/RJ sob o n° 148.820',
+  end: 'Avenida das Américas, 19005, sala 1120, Torre II, Recreio dos Bandeirantes, Rio de Janeiro, RJ, CEP: 22.790-703',
+  cpf: '092.261.607-83'
+};
+
+// ─── NAVIGATION ──────────────────────────────────────────
+function goScreen(name) {
+  if (name === 'checklist') { goChecklist(); return; }
+  const idx = STEPS.indexOf(name) + 1;
+  if (idx === 4) buildPreview();
+  if (idx === 5) buildSummary();
+
+  document.getElementById('screen-checklist-overlay').style.display = 'none';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+
+  const titles = {
+    promad: 'Conectar ao PROMAD',
+    cliente: 'Dados do Cliente',
+    documentos: 'Selecionar Documentos',
+    preview: 'Revisão dos Documentos',
+    assinatura: 'Enviar para Assinatura — D4Sign'
+  };
+  document.getElementById('topbar-title').textContent = titles[name];
+  currentStep = idx;
+  updateStepper();
+}
+
+function nextStep() {
+  if (currentStep < 5) goScreen(STEPS[currentStep]);
+}
+function prevStep() {
+  if (currentStep > 1) goScreen(STEPS[currentStep - 2]);
+}
+
+function updateStepper() {
+  for (let i = 1; i <= 5; i++) {
+    const st = document.getElementById('st' + i);
+    const sc = document.getElementById('sc' + i);
+    st.className = 'step';
+    if (i < currentStep) { st.classList.add('done'); sc.textContent = '✓'; }
+    else if (i === currentStep) { st.classList.add('active'); sc.textContent = i; }
+    else { sc.textContent = i; }
+    if (i < 5) {
+      document.getElementById('sl' + i).className = 'step-line' + (i < currentStep ? ' done' : '');
+    }
+  }
+}
+
+// ─── PROMAD IFRAME ─────────────────────────────────────
+// Legacy iframe functions (no longer used, kept for compatibility)
+function onIframeLoad() {}
+function onIframeError() {}
+function reloadIframe() {
+  window.open('https://integra.adv.br/login-integra.asp', '_blank');
+}
+
+function captureFromIframe() {
+  // Legacy function - now redirects to paste workflow
+  showManualCapture();
+}
+
+function extractFromPaste() {
+  const area = document.getElementById('promad-paste-area');
+  const text = area ? area.value.trim() : '';
+
+  if (!text) {
+    toast('⚠️ Cole os dados do PROMAD na área de texto primeiro', 'error');
+    return;
+  }
+
+  // Show quick preview of what was pasted (debug)
+  const lineCount = text.split(/\n/).filter(function(l){ return l.trim(); }).length;
+  const firstLine = text.split(/\n/).find(function(l){ return l.trim(); }) || '';
+  console.log('[PROMAD] Text received:', lineCount, 'lines. First:', firstLine);
+
+  parsePromadText(text);
+}
+
+function showManualCapture() {
+  // No longer needed as a modal — just advance to manual fill
+  fillManually();
+}
+
+function parseFromPaste() {
+  const text = document.getElementById('promad-paste-area')
+    ? document.getElementById('promad-paste-area').value
+    : (document.getElementById('paste-area') ? document.getElementById('paste-area').value : '');
+  if (text.trim()) {
+    parsePromadText(text);
+  }
+}
+
+function parsePromadText(text) {
+  var rawLines = text.split(/[\r\n]+/);
+  var lines = [];
+  for (var i = 0; i < rawLines.length; i++) {
+    var l = rawLines[i].trim();
+    if (l) lines.push(l);
+  }
+
+  var fields = {};
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    if (!line.endsWith(':')) continue;
+    var label = line.slice(0, -1).trim().toLowerCase();
+    var value = '';
+    for (var j = i + 1; j < Math.min(i + 3, lines.length); j++) {
+      var next = lines[j];
+      if (!next) continue;
+      if (next.endsWith(':')) break;
+      if (next.charAt(0) === '<') {
+        var val = next.slice(1).trim();
+        if (val && !/^Selecione/i.test(val)) value = val;
+        break;
+      }
+      if (/^Selecione/i.test(next)) {
+        var m = next.match(/<([^<]+)$/);
+        if (m) { var v2 = m[1].trim(); if (!/^Selecione/i.test(v2)) value = v2; }
+        break;
+      }
+      if (/^UF\s+[A-Z]{2}/.test(next)) {
+        var m2 = next.match(/<([A-Z]{2})$/);
+        if (m2) value = m2[1].trim();
+        break;
+      }
+      value = next;
+      break;
+    }
+    if (value) fields[label] = value;
+  }
+
+  var map = {
+    'nome': 'f-nome', 'nacionalidade': 'f-nac',
+    'profiss\u00e3o': 'f-prof', 'estado civil': 'f-ecivil',
+    'nascimento': 'f-nasc', 'cpf': 'f-cpf', 'rg': 'f-rg',
+    'e-mail 1': 'f-email', 'e-mail': 'f-email',
+    'celular': 'f-tel', 'residencial': 'f-tel',
+    'cep': 'f-cep', 'estado': 'f-uf',
+    'endere\u00e7o': 'f-end', 'bairro': 'f-bairro',
+    'cidade': 'f-cidade', 'contrato': 'f-proc',
+    'n\u00ba do contrato': 'f-proc', 'processo': 'f-proc'
+  };
+
+  var filled = 0;
+  Object.keys(map).forEach(function(lbl) {
+    if (!fields[lbl]) return;
+    var el = document.getElementById(map[lbl]);
+    if (el && !el.value) { el.value = fields[lbl]; filled++; }
+  });
+
+  var cel = fields['celular'] || fields['residencial'] || '';
+  if (cel) {
+    var wEl = document.getElementById('f-whatsapp');
+    if (wEl && !wEl.value) wEl.value = cel;
+  }
+
+  var dot = document.getElementById('promad-dot');
+  var txt = document.getElementById('promad-status-text');
+  if (filled >= 2) {
+    if (dot) dot.className = 'status-dot';
+    if (txt) txt.textContent = 'PROMAD conectado';
+    toast('\u2705 ' + filled + ' campos extra\u00eddos!', 'success');
+    var pa = document.getElementById('promad-paste-area');
+    if (pa) pa.value = '';
+    goScreen('cliente');
+  } else {
+    toast('\u26a0\ufe0f Nenhum dado reconhecido.', 'error');
+  }
+}
+function fillManually() {
+  setPromadConnected(false);
+  goScreen('cliente');
+}
+
+function setPromadConnected(connected) {
+  const dot = document.getElementById('promad-dot');
+  const txt = document.getElementById('promad-status-text');
+  if (connected) {
+    dot.className = 'status-dot';
+    txt.textContent = 'PROMAD conectado';
+  } else {
+    dot.className = 'status-dot disconnected';
+    txt.textContent = 'PROMAD desconectado';
+  }
+}
+
+function updateDisplay() {
+  const nome = document.getElementById('f-nome')?.value || '—';
+  const cpf = document.getElementById('f-cpf')?.value || '—';
+  const proc = document.getElementById('f-proc')?.value || '—';
+  document.getElementById('display-nome').textContent = nome;
+  document.getElementById('display-cpf').textContent = cpf;
+  document.getElementById('display-proc').textContent = 'Nº ' + proc;
+}
+
+function toggleRepr() {
+  hasRepr = document.getElementById('toggle-repr').checked;
+  document.getElementById('repr-section').style.display = hasRepr ? 'block' : 'none';
+  const d = hasRepr ? '' : 'none';
+  ['repr-email-group','repr-email-field','repr-whatsapp-field','repr-tipo-group'].forEach(function(id){
+    const el = document.getElementById(id);
+    if (el) el.style.display = d;
+  });
+}
+
+// ─── DOCUMENT SELECTION ──────────────────────────────────
+function toggleDoc(id) {
+  const el = document.getElementById('doc-' + id);
+  if (selectedDocs.has(id)) {
+    selectedDocs.delete(id);
+    el.classList.remove('selected');
+  } else {
+    selectedDocs.add(id);
+    el.classList.add('selected');
+  }
+  document.getElementById('sel-count').textContent =
+    selectedDocs.size + ' documento' + (selectedDocs.size !== 1 ? 's' : '') + ' selecionado' + (selectedDocs.size !== 1 ? 's' : '');
+}
+
+// ─── COLLECT CLIENT DATA ──────────────────────────────────
+function getClient() {
+  return {
+    proc: v('f-proc'),
+    nome: v('f-nome'),
+    cpf: v('f-cpf'),
+    rg: v('f-rg'),
+    nac: v('f-nac') || 'brasileiro(a)',
+    ecivil: v('f-ecivil'),
+    prof: v('f-prof'),
+    end: v('f-end'),
+    bairro: v('f-bairro'),
+    cidade: v('f-cidade') || 'Rio de Janeiro',
+    uf: v('f-uf') || 'RJ',
+    cep: v('f-cep'),
+    tel: v('f-tel'),
+    email: v('f-email'),
+    nasc: v('f-nasc'),
+  };
+}
+function getRepr() {
+  return {
+    nome: v('r-nome'), cpf: v('r-cpf'), rg: v('r-rg'),
+    nac: v('r-nac') || 'brasileiro(a)',
+    ecivil: v('r-ecivil'), prof: v('r-prof'),
+    end: v('r-end'), rel: v('r-rel'), email: v('r-email'),
+  };
+}
+function v(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function today() {
+  return new Date().toLocaleDateString('pt-BR', { day:'numeric', month:'long', year:'numeric' });
+}
+
+// ─── DOCUMENT TEMPLATES ──────────────────────────────────
+function letterhead() {
+  return `
+  <div class="letterhead">
+    <h1>Marcela da Silva Pena</h1>
+    <p>Advogada · OAB/RJ 148.820 · Av. das Américas, 19005, sala 1120, Torre II, Recreio dos Bandeirantes, Rio de Janeiro/RJ · CEP 22.790-703</p>
+  </div>`;
+}
+
+function clientTable(c, r) {
+  let rows = `
+    <tr><td>Nº Contrato</td><td>${c.proc}</td><td>CPF</td><td>${c.cpf}</td></tr>
+    <tr><td>Nome</td><td colspan="3">${c.nome}</td></tr>
+    <tr><td>Nacionalidade</td><td>${c.nac}</td><td>Estado Civil</td><td>${c.ecivil}</td></tr>
+    <tr><td>Profissão</td><td>${c.prof}</td><td>RG</td><td>${c.rg}</td></tr>
+    <tr><td>Endereço</td><td colspan="3">${c.end}</td></tr>
+    <tr><td>Bairro</td><td>${c.bairro}</td><td>Cidade/UF</td><td>${c.cidade}/${c.uf} · CEP ${c.cep}</td></tr>
+    <tr><td>Telefone</td><td colspan="3">${c.tel}</td></tr>`;
+  if (hasRepr && r && r.nome) {
+    rows += `
+    <tr><td colspan="4" style="background:#f0f4ff;font-weight:bold;color:#0F3460;padding-top:8px">
+      REPRESENTANTE LEGAL (${r.rel})</td></tr>
+    <tr><td>Nome</td><td colspan="3">${r.nome}</td></tr>
+    <tr><td>CPF</td><td>${r.cpf}</td><td>RG</td><td>${r.rg}</td></tr>
+    <tr><td>Nacionalidade</td><td>${r.nac}</td><td>Estado Civil</td><td>${r.ecivil}</td></tr>
+    <tr><td>Profissão</td><td>${r.prof}</td><td>Endereço</td><td>${r.end}</td></tr>`;
+  }
+  return `<table class="field-table">${rows}</table>`;
+}
+
+function sigArea(c, r) {
+  const city = c.cidade || 'Rio de Janeiro';
+  let sigs = `
+    <div class="sig-line">${c.nome}<br>CPF: ${c.cpf}<br>Contratante</div>
+    <div class="sig-line">${ADV.nome}<br>OAB/RJ 148.820<br>Advogada/Contratada</div>`;
+  if (hasRepr && r && r.nome) {
+    sigs += `<div class="sig-line">${r.nome}<br>CPF: ${r.cpf}<br>Representante Legal</div>`;
+  }
+  return `<p style="margin-top:32px;text-align:center">${city}, ${today()}</p>
+    <div class="signature-area">${sigs}</div>`;
+}
+
+const CLAUSES_COMUNS = `
+<p><strong>1. DO OBJETO DO CONTRATO</strong></p>
+<p>1.1. O presente contrato tem como objeto a prestação de serviços advocatícios para a defesa dos interesses da(o) CONTRATANTE, especificadamente para CONCESSÃO/RESTABELECIMENTO/REVISÃO DO BENEFÍCIO PREVIDENCIÁRIO OU PEDIDO DE OBRIGAÇÃO DE FAZER em face do INSS.</p>
+<p>1.2 A Ação de Obrigação de Fazer decorre de Pedido Administrativo de Benefício não respondido pelo INSS no prazo legal, da qual a CONTRATADA está autorizada a ingressar com a demanda em caso de inércia do INSS no processo administrativo.</p>
+<p>1.3 Distribuída a demanda de Obrigação de Fazer, caso o benefício seja liberado em égide administrativa, caberão os honorários referentes ao Processo Administrativo, conforme Cláusula 2ª, item a.</p>
+<p>1.4 O presente contrato de honorários abrange tão somente o descrito na cláusula 1.1, não incluindo ações correlatas, não sendo de responsabilidade da(s) CONTRATADA(s) a atuação em outros procedimentos, mesmo que estes guardem relação fática ou jurídica com o objeto deste contrato, salvo nova contratação, com o ajuste de novos honorários.</p>
+<p><strong>2. DOS HONORÁRIOS ADVOCATÍCIOS</strong></p>
+<p>Em remuneração aos serviços prestados pela(s) CONTRATADA(S), fica o(a) Contratante obrigado(a), de forma irrevogável e irretratável, ao pagamento de honorários advocatícios em favor da(s) CONTRATADA(S), da seguinte forma:</p>
+<p>a) <strong>Processo Administrativo:</strong> 30% do valor da causa + 03 salários benefícios, após a implantação do benefício. Esses honorários serão preferencialmente pagos no primeiro recebimento do benefício. Em caso de inércia do INSS ou indeferimento do processo administrativo, a(s) CONTRATADA(S) ficam autorizadas a propor ação judicial para a obtenção do benefício previdenciário contratado.</p>
+<p>b) <strong>Processo Judicial:</strong> Honorários de 30% (trinta por cento) sobre o proveito econômico do processo, com vencimento na data do recebimento da RPV ou Precatório.</p>
+<p>c) Fica estabelecido que o valor mínimo a ser pago pelos serviços advocatícios é de <strong>R$ 5.000,00 (cinco mil reais)</strong>, seja em âmbito administrativo ou judicial.</p>
+<p>2.1 O proveito econômico sobre o qual incidem os honorários advocatícios é o valor bruto composto por todas as parcelas vencidas e vincendas, juros e atualização monetária calculadas até a data do trânsito em julgado, sem dedução de benefícios previdenciários já recebidos, independentemente da opção de renúncia pelo cliente do valor excedente aos 60 salários mínimos.</p>
+<p>2.2 A renúncia pelo(a) CONTRATANTE ao valor excedente a 60 salários mínimos não prejudicará o disposto no item 2.1 deste contrato.</p>
+<p>2.3 No caso de sair vencedora a(o) CONTRATANTE, os honorários devidos à sucumbência pertencerão única e exclusivamente à(s) CONTRATADA(S), nos termos do art. 23 do EOAB, Lei 8.906/94.</p>
+<p>2.4 Fica estabelecido que o valor mínimo a ser pago pelos serviços advocatícios é de R$ 5.000,00 (cinco mil reais). As partes estabelecem que havendo atraso no pagamento dos honorários, serão cobrados juros de mora de 1% (um por cento) ao mês e multa de mora equivalente a 2% (dois por cento).</p>
+<p><strong>3. DAS RESPONSABILIDADES</strong></p>
+<p>3.1 A CONTRATADA se compromete a empregar todos os esforços para a defesa dos interesses do CONTRATANTE, atuando com diligência e probidade.</p>
+<p>3.2 O(A) CONTRATANTE se compromete a fornecer todos os documentos necessários para o andamento do processo no prazo solicitado pela CONTRATADA.</p>
+<p><strong>4. DA RESCISÃO</strong></p>
+<p>4.1 O presente contrato poderá ser rescindido por qualquer das partes, mediante comunicação escrita, com antecedência mínima de 30 (trinta) dias, ficando devidos os honorários proporcionais aos serviços já prestados.</p>
+<p><strong>5. DO FORO</strong></p>
+<p>5.1 Fica eleito o foro da Comarca do Rio de Janeiro/RJ para dirimir quaisquer controvérsias oriundas do presente contrato.</p>`;
+
+function genDoc(id, c, r) {
+  const lh = letterhead();
+  switch (id) {
+
+    case 'proc-judicial': return `${lh}
+      <div class="doc-title">Procuração Ad Judicia et Extra</div>
+      <p><strong>OUTORGANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>OUTORGADO(S):</strong> Dra. <strong>${ADV.nome}</strong>, ${ADV.qualif}, com endereço profissional na ${ADV.end}.</p>
+      <p><strong>PODERES:</strong> Os da cláusula <em>ad judicia et extra</em>, para receber citações, propor contra quem de direito as ações competentes e defender-me nas contrárias, sejam elas principais, preparatórias ou incidentais, seguindo umas e outras até final decisão, podendo excepcionar, reconvir, embargar e usar quaisquer recursos, mesmo o especial e extraordinário, e mais os poderes especiais de receber e dar quitação, desistir, reconhecer a procedência de pedido, transigir, firmar termos ou compromissos, em juízo ou fora deste, renunciar ao direito sobre que se funde a ação, e ainda para prestar primeiras declarações em inventários, levantar valores ou depósitos, e efetuar quaisquer levantamentos, além de tudo o mais praticar que seja necessário ao perfeito desempenho deste mandato, que poderá ser substabelecido com ou sem reserva.</p>
+      <p><strong>FINALIDADE:</strong> Propositura de ação judicial perante o INSS e demais providências necessárias.</p>
+      ${sigArea(c,r)}`;
+
+    case 'proc-admin': return `${lh}
+      <div class="doc-title">Procuração Administrativa</div>
+      <p><strong>OUTORGANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>OUTORGADO(S):</strong> Dra. <strong>${ADV.nome}</strong>, ${ADV.qualif}, CPF nº ${ADV.cpf}, advogada, com endereço na ${ADV.end}.</p>
+      <p><strong>PODERES:</strong> Confere, ainda, poderes específicos para receber mensalidades de benefícios, receber quantias atrasadas e firmar os respectivos recibos; requerer benefícios, revisão e interpor recursos; realizar comprovação de vida junto à rede bancária; efetuar cadastro de senha para informações previdenciárias pela internet; e formular requerimentos diversos. Pelo presente termo de responsabilidade, compromete-se o procurador a comunicar ao INSS qualquer evento que possa anular a presente procuração, no prazo de trinta dias, a contar da data em que o mesmo ocorra, principalmente o óbito do segurado/pensionista, mediante apresentação da respectiva certidão. Declara estar ciente de que o descumprimento do compromisso assumido, além de obrigar à devolução de importâncias recebidas indevidamente, sujeitará o responsável às penalidades previstas nos arts. 171 e 299, ambos do Código Penal.</p>
+      <p><strong>FINALIDADE:</strong> Desenvolver todo e qualquer ato administrativo perante o INSS.</p>
+      ${sigArea(c,r)}`;
+
+    case 'proc-curatela': return `${lh}
+      <div class="doc-title">Procuração — Ação de Curatela</div>
+      <p><strong>OUTORGANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>OUTORGADO(S):</strong> Dra. <strong>${ADV.nome}</strong>, ${ADV.qualif}, com endereço profissional na ${ADV.end}.</p>
+      <p><strong>PODERES:</strong> Os da cláusula <em>ad judicia et extra</em>, para representação em todos os atos da ação de curatela, inclusive o de receber citações, impugnar, substabelecer com ou sem reserva de iguais poderes, requerer perícias, laudos, documentos, apresentar embargos, interpor recursos de qualquer natureza, transigir, desistir, dar e receber quitação, e praticar todos os demais atos necessários ao fiel desempenho do presente mandato, em conformidade com os arts. 1.767 a 1.783 do Código Civil.</p>
+      <p><strong>FINALIDADE:</strong> Propositura de Ação de Curatela, conforme determinação judicial ou necessidade do(a) OUTORGANTE.</p>
+      ${sigArea(c,r)}`;
+
+    case 'hipossu': return `${lh}
+      <div class="doc-title">Declaração de Hipossuficiência</div>
+      ${clientTable(c,r)}
+      <p>Eu, <strong>${c.nome}</strong>, ${c.nac}, ${c.ecivil}, portador(a) do CPF nº <strong>${c.cpf}</strong> e RG nº <strong>${c.rg}</strong>, residente e domiciliado(a) na ${c.end}, Bairro ${c.bairro}, ${c.cidade}/${c.uf}, CEP ${c.cep}, <strong>DECLARO</strong>, sob as penas da lei, junto a este Juízo, que não disponho de recursos financeiros para arcar com as custas judiciais e honorários advocatícios, sem prejuízo do meu próprio sustento e de minha família, na forma do art. 99 do Código de Processo Civil.</p>
+      ${sigArea(c,r)}`;
+
+    case 'residencia': return `${lh}
+      <div class="doc-title">Declaração de Residência</div>
+      ${clientTable(c,r)}
+      <p>Eu, <strong>${c.nome}</strong>, ${c.nac}, ${c.ecivil}, portador(a) do CPF nº <strong>${c.cpf}</strong> e RG nº <strong>${c.rg}</strong>, <strong>DECLARO</strong>, sob as penas da lei nº 7.115/1983, ser residente e domiciliado(a) na ${c.end}, Bairro ${c.bairro}, ${c.cidade}/${c.uf}, CEP ${c.cep}, estando ciente de que em caso de falsa declaração estarei sujeito(a) às sanções civis, administrativas e criminais previstas na legislação aplicável.</p>
+      ${sigArea(c,r)}`;
+
+    case 'nao-antecip': return `${lh}
+      <div class="doc-title">Declaração de Não Antecipação de Honorários</div>
+      ${clientTable(c,r)}
+      <p>Eu, <strong>${c.nome}</strong>, ${c.nac}, ${c.ecivil}, portador(a) do CPF nº <strong>${c.cpf}</strong>, <strong>DECLARO</strong> para os devidos fins que não efetuei o pagamento de honorários advocatícios antecipados à advogada <strong>${ADV.nome}</strong>, OAB/RJ 148.820, no percentual de 30% dos honorários contratuais, motivo pelo qual o mesmo deve ser expedido de forma destacada ao patrono da causa, conforme disposições do art. 22, § 4º, da Lei nº 8.906/94 (Estatuto da OAB).</p>
+      ${sigArea(c,r)}`;
+
+    case 'renuncia': return `${lh}
+      <div class="doc-title">Termo de Renúncia</div>
+      ${clientTable(c,r)}
+      <p>Eu, <strong>${c.nome}</strong>, ${c.nac}, ${c.ecivil}, portador(a) do CPF nº <strong>${c.cpf}</strong> e RG nº <strong>${c.rg}</strong>, residente e domiciliado(a) na ${c.end}, Bairro ${c.bairro}, ${c.cidade}/${c.uf}, CEP ${c.cep}, <strong>DECLARO</strong> junto a este Juízo que renuncio a todo e quaisquer valores excedentes a 60 (sessenta) salários mínimos, de acordo com o disposto na Lei nº 10.259/2001, referente ao processo em tramitação em meu favor, ciente de que tal renúncia não prejudica o pagamento dos honorários advocatícios devidos à CONTRATADA, nos termos do contrato de honorários firmado.</p>
+      ${sigArea(c,r)}`;
+
+    case 'auxdoenca': return `${lh}
+      <div class="doc-title">Contrato de Honorários Advocatícios<br><small style="font-size:12px">Auxílio Doença / Auxílio por Incapacidade Temporária</small></div>
+      <p><strong>CONTRATANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>CONTRATADA:</strong> ${ADV.nome}, ${ADV.qualif}, com endereço profissional na ${ADV.end}.</p>
+      ${CLAUSES_COMUNS}
+      <p>⚠️ <strong>ATENÇÃO — AUXÍLIO DOENÇA:</strong> Em caso de concessão do benefício por período de até 06 meses, serão devidos 30% do valor total a ser recebido. Em caso de concessão por período superior a 06 meses, serão devidos 30% do valor total a ser recebido mais 1 (um) salário mínimo, os quais serão pagos, preferencialmente, no primeiro pagamento do benefício.</p>
+      ${sigArea(c,r)}`;
+
+    case 'aposentadoria': return `${lh}
+      <div class="doc-title">Contrato de Honorários Advocatícios<br><small style="font-size:12px">Aposentadoria por Tempo de Contribuição / Invalidez / Especial / Idade</small></div>
+      <p><strong>CONTRATANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>CONTRATADA:</strong> ${ADV.nome}, ${ADV.qualif}, com endereço profissional na ${ADV.end}.</p>
+      ${CLAUSES_COMUNS}
+      ${sigArea(c,r)}`;
+
+    case 'bpcloas': return `${lh}
+      <div class="doc-title">Contrato de Honorários Advocatícios<br><small style="font-size:12px">BPC/LOAS — Benefício de Prestação Continuada</small></div>
+      <p><strong>CONTRATANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>CONTRATADA:</strong> ${ADV.nome}, ${ADV.qualif}, com endereço profissional na ${ADV.end}.</p>
+      ${CLAUSES_COMUNS.replace('OU PEDIDO DE OBRIGAÇÃO DE FAZER', 'OU PEDIDO DE OBRIGAÇÃO DE FAZER DE BENEFÍCIO ASSISTENCIAL – BPC DEFICIÊNCIA OU IDADE')}
+      ${sigArea(c,r)}`;
+
+    case 'pensao': return `${lh}
+      <div class="doc-title">Contrato de Honorários Advocatícios<br><small style="font-size:12px">Pensão por Morte</small></div>
+      <p><strong>CONTRATANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>CONTRATADA:</strong> ${ADV.nome}, ${ADV.qualif}, com endereço profissional na ${ADV.end}.</p>
+      ${CLAUSES_COMUNS.replace('CONCESSÃO/RESTABELECIMENTO/REVISÃO DO BENEFÍCIO PREVIDENCIÁRIO OU PEDIDO DE OBRIGAÇÃO DE FAZER', 'CONCESSÃO/RESTABELECIMENTO/REVISÃO DA PENSÃO POR MORTE')}
+      ${sigArea(c,r)}`;
+
+    case 'plan-br': return `${lh}
+      <div class="doc-title">Contrato de Prestação de Serviços<br><small style="font-size:12px">Planejamento Previdenciário — Brasil</small></div>
+      <p><strong>CONTRATANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>CONTRATADA:</strong> ${ADV.nome}, ${ADV.qualif}, com endereço profissional na ${ADV.end}.</p>
+      <p><strong>1. DO OBJETO</strong></p>
+      <p>1.1. O presente contrato tem por objeto a prestação de serviços de <strong>planejamento previdenciário</strong> em âmbito nacional, compreendendo análise do histórico contributivo junto ao INSS, elaboração de estratégia para maximização dos benefícios previdenciários, orientação sobre o melhor momento e modalidade de aposentadoria, cálculo de tempo de contribuição, e demais serviços necessários ao planejamento previdenciário do CONTRATANTE.</p>
+      <p>1.2. O serviço inclui análise do CNIS (Cadastro Nacional de Informações Sociais), verificação de vínculos empregatícios, atividades rurais, contribuições como autônomo e demais situações que possam impactar o benefício previdenciário.</p>
+      <p><strong>2. DOS HONORÁRIOS</strong></p>
+      <p>2.1. Em remuneração pelos serviços de planejamento previdenciário, fica o(a) CONTRATANTE obrigado(a) ao pagamento de honorários no valor de R$ ___________ (___________), a ser pago da seguinte forma: ___________.</p>
+      <p>2.2. Caso o planejamento resulte em demanda judicial ou administrativa, os honorários para essa atuação serão objeto de novo contrato específico, com os percentuais previstos na Tabela de Honorários da OAB/RJ.</p>
+      <p><strong>3. DAS RESPONSABILIDADES</strong></p>
+      <p>3.1. A CONTRATADA se compromete a elaborar relatório detalhado com o planejamento previdenciário do CONTRATANTE, incluindo as opções disponíveis, riscos e benefícios de cada estratégia.</p>
+      <p>3.2. O(A) CONTRATANTE se compromete a fornecer todos os documentos e informações necessários para a elaboração do planejamento, no prazo máximo de 15 (quinze) dias após a solicitação.</p>
+      <p><strong>4. DO PRAZO</strong></p>
+      <p>4.1. O prazo para entrega do planejamento é de 30 (trinta) dias úteis, contados a partir do recebimento de todos os documentos necessários.</p>
+      <p><strong>5. DO FORO</strong></p>
+      <p>5.1. Fica eleito o foro da Comarca do Rio de Janeiro/RJ para dirimir quaisquer controvérsias.</p>
+      ${sigArea(c,r)}`;
+
+    case 'plan-ext': return `${lh}
+      <div class="doc-title">Contrato de Prestação de Serviços<br><small style="font-size:12px">Planejamento Previdenciário — Exterior (Acordo Internacional)</small></div>
+      <p><strong>CONTRATANTE:</strong></p>
+      ${clientTable(c,r)}
+      <p><strong>CONTRATADA:</strong> ${ADV.nome}, ${ADV.qualif}, com endereço profissional na ${ADV.end}.</p>
+      <p><strong>1. DO OBJETO</strong></p>
+      <p>1.1. O presente contrato tem por objeto a prestação de serviços de <strong>planejamento previdenciário internacional</strong>, compreendendo análise dos direitos previdenciários do CONTRATANTE em face dos Acordos Previdenciários firmados pelo Brasil com outros países, verificação de períodos contributivos no exterior, totalização de tempo de contribuição entre Brasil e país de residência/trabalho, e orientação para obtenção de benefícios previdenciários internacionais.</p>
+      <p>1.2. O serviço abrange a análise dos seguintes Acordos Internacionais de Previdência Social, conforme aplicável ao caso concreto: Alemanha, Argentina, Bélgica, Cabo Verde, Canadá, Chile, Espanha, Estados Unidos, França, Grécia, Israel, Itália, Japão, Luxemburgo, Portugal, Suíça, Uruguai e demais países com acordo vigente.</p>
+      <p>1.3. Inclui orientação sobre o processo junto ao INSS para reconhecimento de tempo de serviço no exterior e junto ao órgão previdenciário estrangeiro.</p>
+      <p><strong>2. DOS HONORÁRIOS</strong></p>
+      <p>2.1. Em remuneração pelos serviços de planejamento previdenciário internacional, fica o(a) CONTRATANTE obrigado(a) ao pagamento de honorários no valor de R$ ___________ (___________), a ser pago da seguinte forma: ___________.</p>
+      <p>2.2. Os honorários relativos a eventuais procedimentos administrativos ou judiciais decorrentes do planejamento serão objeto de contrato específico.</p>
+      <p>2.3. Despesas com tradução juramentada de documentos, certidões estrangeiras, apostilamento e demais custos internacionais correrão por conta do CONTRATANTE, salvo acordo diverso.</p>
+      <p><strong>3. DAS RESPONSABILIDADES</strong></p>
+      <p>3.1. A CONTRATADA se compromete a elaborar relatório de viabilidade do planejamento previdenciário internacional, identificando as possibilidades de totalização de tempo e os benefícios aplicáveis.</p>
+      <p>3.2. O(A) CONTRATANTE se compromete a fornecer documentos de períodos de trabalho e contribuição no exterior, devidamente apostilados quando necessário.</p>
+      <p><strong>4. DO PRAZO</strong></p>
+      <p>4.1. O prazo para entrega do planejamento é de 45 (quarenta e cinco) dias úteis após o recebimento de toda a documentação necessária.</p>
+      <p><strong>5. DA LEGISLAÇÃO APLICÁVEL</strong></p>
+      <p>5.1. O presente contrato rege-se pela legislação brasileira (Lei nº 8.212/91, Lei nº 8.213/91 e Decretos regulamentadores), pelos Acordos Internacionais de Previdência Social vigentes e pelas normas do Estatuto da OAB (Lei nº 8.906/94).</p>
+      <p><strong>6. DO FORO</strong></p>
+      <p>6.1. Fica eleito o foro da Comarca do Rio de Janeiro/RJ para dirimir quaisquer controvérsias.</p>
+      ${sigArea(c,r)}`;
+
+    default: return `<p>Documento não encontrado: ${id}</p>`;
+  }
+}
+
+// ─── BUILD PREVIEW ────────────────────────────────────────
+function buildPreview() {
+  const c = getClient();
+  const r = hasRepr ? getRepr() : {};
+  const container = document.getElementById('preview-container');
+  if (selectedDocs.size === 0) {
+    container.innerHTML = `<p style="color:var(--gray);text-align:center;padding:48px">
+      Nenhum documento selecionado. Volte e selecione os documentos.</p>`;
+    return;
+  }
+  let html = '';
+  selectedDocs.forEach(id => {
+    html += `<div class="doc-preview">${genDoc(id, c, r)}</div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ─── BUILD SUMMARY ────────────────────────────────────────
+function buildSummary() {
+  const c = getClient();
+  // Auto-fill emails and WhatsApp from client data
+  if (c.email) document.getElementById('d4-email-cliente').value = c.email;
+  const whaEl = document.getElementById('f-whatsapp');
+  const whaD4 = document.getElementById('d4-whatsapp-cliente');
+  if (whaEl && whaEl.value && whaD4) whaD4.value = getWhatsAppFormatted(whaEl.value) || whaEl.value;
+  if (hasRepr) {
+    const r = getRepr();
+    if (r.email) { const el = document.getElementById('d4-email-repr'); if(el) el.value = r.email; }
+    ['repr-email-group','repr-email-field','repr-whatsapp-field','repr-tipo-group'].forEach(function(id){
+      const el = document.getElementById(id); if(el) el.style.display = '';
+    });
+  }
+  // Trigger validation to update button state
+  validateD4Fields();
+
+  const names = {
+    'proc-judicial': 'Procuração Judicial',
+    'proc-admin': 'Procuração Administrativa',
+    'proc-curatela': 'Procuração de Curatela',
+    'hipossu': 'Declaração de Hipossuficiência',
+    'residencia': 'Declaração de Residência',
+    'nao-antecip': 'Declaração de Não Antecipação',
+    'renuncia': 'Termo de Renúncia',
+    'auxdoenca': 'Contrato Auxílio Doença',
+    'aposentadoria': 'Contrato Aposentadoria',
+    'bpcloas': 'Contrato BPC/LOAS',
+    'pensao': 'Contrato Pensão por Morte',
+    'plan-br': 'Planejamento Prev. Brasil',
+    'plan-ext': 'Planejamento Prev. Exterior',
+  };
+
+  const tbody = document.getElementById('summary-body');
+  tbody.innerHTML = '';
+  selectedDocs.forEach(id => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${names[id] || id}</td>
+      <td><span class="badge badge-pending" id="status-${id}">⏳ Aguardando envio</span></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ─── SEND TO D4SIGN ───────────────────────────────────────
+// ─── D4SIGN SAFE (COFRE) AUTO-FETCH ────────────────────
+async function fetchSafes() {
+  const apiKeyEl = document.getElementById('d4-apikey');
+  const apiKey   = apiKeyEl ? apiKeyEl.value.trim() : '';
+  if (!apiKey) {
+    toast('Cole o Token API primeiro', 'error');
+    if (apiKeyEl) apiKeyEl.focus();
+    return;
+  }
+
+  const btn  = document.getElementById('btn-fetch-safes');
+  const hint = document.getElementById('safe-hint');
+  const sel  = document.getElementById('d4-safe-select');
+  const inp  = document.getElementById('d4-safe');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Conectando...';
+  hint.innerHTML = '<span style="color:#7A5F18;font-weight:600">🔍 Conectando ao D4Sign...</span>';
+
+  // Auto-detect env from token
+  const envSel = document.getElementById('d4-env');
+  const isSandbox = apiKey.startsWith('test_') || (envSel && envSel.value === 'sandbox');
+  if (envSel) envSel.value = isSandbox ? 'sandbox' : 'production';
+  const baseUrl = isSandbox
+    ? 'https://sandbox.d4sign.com.br/api/v1'
+    : 'https://secure.d4sign.com.br/api/v1';
+  const appUrl = isSandbox
+    ? 'https://sandbox.d4sign.com.br'
+    : 'https://secure.d4sign.com.br';
+
+  // Try the API — works if running from a server with CORS enabled
+  let apiWorked = false;
+  try {
+    const resp = await Promise.race([
+      fetch(baseUrl + '/safes?tokenAPI=' + encodeURIComponent(apiKey), {
+        method: 'GET', headers: { 'Accept': 'application/json' }, mode: 'cors'
+      }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
+    ]);
+
+    if (resp.ok) {
+      const data = await resp.json();
+      const safes = Array.isArray(data) ? data : (data.safes || data.data || []);
+      if (safes && safes.length > 0) {
+        sel.innerHTML = '<option value="">— Selecione o cofre —</option>';
+        safes.forEach(function(s) {
+          const uuid = s.uuid_safe || s.uuid || s.id || '';
+          const name = s.safe_name || s.name || s.safeName || 'Cofre sem nome';
+          const opt  = document.createElement('option');
+          opt.value  = uuid;
+          opt.textContent = name + '  (' + uuid.substring(0,8) + '...)';
+          sel.appendChild(opt);
+        });
+        if (safes.length === 1) {
+          sel.value = sel.options[1].value;
+          onSafeSelected();
+          hint.innerHTML = '<span style="color:#1A6B45;font-weight:600">✅ Cofre encontrado e selecionado!</span>';
+        } else {
+          hint.innerHTML = '<span style="color:#1A6B45;font-weight:600">✅ ' + safes.length + ' cofres encontrados — selecione abaixo</span>';
+          sel.style.display = 'block';
+          inp.style.display = 'none';
+        }
+        toast('✅ Cofres carregados!', 'success');
+        apiWorked = true;
+      }
+    }
+  } catch(e) { /* CORS or network error — fall through to manual guide */ }
+
+  btn.disabled = false;
+  btn.innerHTML = '🔍 Buscar Cofres';
+
+  if (apiWorked) return;
+
+  // ── CORS blocked: show step-by-step visual guide ──
+  sel.style.display = 'none';
+  inp.style.display = 'block';
+  inp.placeholder   = 'Cole aqui o UUID do cofre (ex: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)';
+
+  // Remove old helper if exists
+  const old = document.getElementById('cors-helper');
+  if (old) old.remove();
+
+  const safeGroup = inp.closest('.form-group');
+  if (!safeGroup) {
+    hint.innerHTML = '<span style="color:#E74C3C">Cole o UUID do cofre manualmente no campo acima</span>';
+    return;
+  }
+
+  const helper = document.createElement('div');
+  helper.id = 'cors-helper';
+  helper.style.cssText = 'margin-top:12px;border-radius:12px;overflow:hidden;border:1px solid #BFDBFE;box-shadow:0 2px 12px rgba(29,78,216,0.08)';
+  helper.innerHTML =
+    '<div style="background:#1D4ED8;padding:14px 20px;display:flex;align-items:center;justify-content:space-between">' +
+      '<div style="color:white;font-size:13px;font-weight:700">🔑 Como encontrar o UUID do Cofre no D4Sign</div>' +
+      '<button onclick="document.getElementById(\'cors-helper\').remove()" style="background:rgba(255,255,255,0.2);border:none;color:white;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px">✕ fechar</button>' +
+    '</div>' +
+    '<div style="background:#EFF6FF;padding:20px">' +
+      '<div style="display:flex;flex-direction:column;gap:14px;margin-bottom:18px">' +
+
+        '<div style="display:flex;gap:14px;align-items:flex-start">' +
+          '<div style="background:#1D4ED8;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700;margin-top:2px">1</div>' +
+          '<div>' +
+            '<div style="font-size:13px;font-weight:600;color:#1e3a5f;margin-bottom:4px">Abra o D4Sign e faça login</div>' +
+            '<a href="' + appUrl + '" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#1D4ED8;color:white;padding:7px 14px;border-radius:7px;text-decoration:none;font-size:12px;font-weight:600">' +
+              '🔗 Abrir D4Sign (' + (isSandbox ? 'Sandbox' : 'Produção') + ')' +
+            '</a>' +
+          '</div>' +
+        '</div>' +
+
+        '<div style="display:flex;gap:14px;align-items:flex-start">' +
+          '<div style="background:#1D4ED8;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700;margin-top:2px">2</div>' +
+          '<div>' +
+            '<div style="font-size:13px;font-weight:600;color:#1e3a5f;margin-bottom:4px">No menu lateral esquerdo clique em <strong>"Cofres"</strong></div>' +
+            '<div style="background:white;border:1px solid #CBD5E0;border-radius:8px;padding:10px 14px;font-size:12px;color:#4A5568;line-height:1.7">' +
+              '📁 Você verá seus cofres listados. Clique no nome do cofre que quer usar.' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div style="display:flex;gap:14px;align-items:flex-start">' +
+          '<div style="background:#1D4ED8;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700;margin-top:2px">3</div>' +
+          '<div>' +
+            '<div style="font-size:13px;font-weight:600;color:#1e3a5f;margin-bottom:4px">Copie o UUID da barra de endereço do navegador</div>' +
+            '<div style="background:#1e3a5f;border-radius:8px;padding:10px 14px;font-family:monospace;font-size:12px;color:#93C5FD;word-break:break-all">' +
+              appUrl + '/app/account/safe/<span style="background:#F59E0B;color:#1e3a5f;padding:2px 6px;border-radius:4px;font-weight:700">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</span>' +
+            '</div>' +
+            '<div style="font-size:11px;color:#6B7280;margin-top:6px">⬆️ O código destacado em amarelo na URL — esse é o UUID do cofre</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div style="display:flex;gap:14px;align-items:flex-start">' +
+          '<div style="background:#1A6B45;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:700;margin-top:2px">4</div>' +
+          '<div style="flex:1">' +
+            '<div style="font-size:13px;font-weight:600;color:#1e3a5f;margin-bottom:6px">Cole o UUID no campo abaixo e clique em Salvar</div>' +
+            '<div style="display:flex;gap:8px">' +
+              '<input id="uuid-input-helper" type="text" placeholder="Cole o UUID ou a URL do cofre — extraído automaticamente" style="flex:1;background:white;border:2px solid #1D4ED8;border-radius:8px;padding:9px 12px;font-size:13px;color:#1e3a5f;font-family:monospace;outline:none" oninput="extractUUIDFromInput(this);document.getElementById('d4-safe').value=this.value" onpaste="setTimeout(()=>{extractUUIDFromInput(this);document.getElementById('d4-safe').value=this.value},10)">' +
+              '<button onclick="var v=document.getElementById(\'uuid-input-helper\').value.trim();if(v){document.getElementById(\'d4-safe\').value=v;validateD4Fields();document.getElementById(\'cors-helper\').remove();toast(\'✅ UUID do cofre salvo!\',\'success\')}else{toast(\'Cole o UUID primeiro\',\'error\')}" style="background:#1A6B45;color:white;border:none;border-radius:8px;padding:9px 18px;cursor:pointer;font-size:13px;font-weight:600;font-family:\'DM Sans\',sans-serif;white-space:nowrap">' +
+                '✅ Salvar UUID' +
+              '</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+      '</div>' +
+      '<div style="background:white;border:1px solid #BFDBFE;border-radius:8px;padding:10px 14px;font-size:11px;color:#6B7280">' +
+        '💡 <strong>Dica:</strong> Este é um passo único — salve o UUID e nunca mais precisará fazer isso novamente para esta conta.' +
+      '</div>' +
+    '</div>';
+
+  safeGroup.appendChild(helper);
+  hint.innerHTML = '<span style="color:#1D4ED8;font-weight:600">👇 Siga os 4 passos abaixo para encontrar o UUID</span>';
+  setTimeout(function(){ const el = document.getElementById('uuid-input-helper'); if(el) el.focus(); }, 300);
+}
+
+function onSafeSelected() {
+  const sel = document.getElementById('d4-safe-select');
+  const inp = document.getElementById('d4-safe');
+  const uuid = sel.value;
+  inp.value = uuid;
+  validateD4Fields();
+
+  if (uuid) {
+    const safeName = sel.options[sel.selectedIndex].textContent.split('  (')[0];
+    document.getElementById('safe-hint').innerHTML =
+      '<span style="color:#2ECC71">✅ Cofre selecionado: <strong style="color:#0F3460;font-weight:600">' + safeName + '</strong></span>';
+  }
+}
+
+function toggleD4Pass(fieldId, btn) {
+  const f = document.getElementById(fieldId);
+  if (f.type === 'password') { f.type = 'text'; btn.textContent = '🙈'; }
+  else { f.type = 'password'; btn.textContent = '👁️'; }
+}
+
+function extractUUIDFromInput(el) {
+  if (!el) return;
+  let val = el.value.trim();
+
+  // If it looks like a URL, extract the UUID from it
+  // Handles formats like:
+  // https://secure.d4sign.com.br/desk/cofres/1467788/40cdbb32-44d1-46cd-a7f7-1a0f68758662.html
+  // https://secure.d4sign.com.br/app/account/safe/40cdbb32-44d1-46cd-a7f7-1a0f68758662
+  const uuidPattern = /([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i;
+  const match = val.match(uuidPattern);
+
+  if (match) {
+    const uuid = match[1];
+    el.value = uuid;
+    // Also update d4-safe if this is the helper input
+    const mainInput = document.getElementById('d4-safe');
+    if (mainInput && el.id !== 'd4-safe') mainInput.value = uuid;
+    // Show success feedback
+    el.style.borderColor = '#1A6B45';
+    el.style.background  = '#F0FFF4';
+    const hint = document.getElementById('safe-hint');
+    if (hint) hint.innerHTML = '<span style="color:#1A6B45;font-weight:600">✅ UUID extraído automaticamente: <code style="background:#E2E8F0;padding:2px 6px;border-radius:4px;font-size:11px">' + uuid.substring(0,18) + '...</code></span>';
+    validateD4Fields();
+  } else {
+    el.style.borderColor = '';
+    el.style.background  = '';
+    validateD4Fields();
+  }
+}
+
+function autoDetectEnv(token) {
+  const envSel = document.getElementById('d4-env');
+  const hint   = document.getElementById('safe-hint');
+  const corsHelper = document.getElementById('cors-helper');
+  if (!envSel) return;
+  if (token.startsWith('live_')) {
+    if (envSel.value !== 'production') {
+      envSel.value = 'production';
+      if (hint) hint.innerHTML = '<span style="color:#2ECC71">✅ Ambiente alterado para <strong>Produção</strong> automaticamente (token live_)</span>';
+    }
+  } else if (token.startsWith('test_')) {
+    if (envSel.value !== 'sandbox') {
+      envSel.value = 'sandbox';
+      if (hint) hint.innerHTML = '<span style="color:#5DADE2">🧪 Ambiente alterado para <strong>Sandbox</strong> automaticamente (token test_)</span>';
+    }
+  }
+  // Clear any previous cors helper when token changes
+  if (corsHelper) corsHelper.remove();
+}
+
+function validateD4Fields() {
+  const apiKey = document.getElementById('d4-apikey')?.value.trim();
+  const safe   = document.getElementById('d4-safe')?.value.trim();
+  const email  = document.getElementById('d4-email-cliente')?.value.trim();
+  const btn    = document.getElementById('btn-send-d4');
+  const status = document.getElementById('d4-validation-status');
+
+  const errors = [];
+  if (!apiKey) errors.push('Token API não preenchido');
+  else if (apiKey.length < 10)
+    errors.push('Token API muito curto — verifique se copiou completo');
+  if (!safe) errors.push('UUID do Cofre não preenchido');
+  else if (!safe.match(/^[0-9a-f-]{36}$/i)) errors.push('UUID do Cofre parece inválido (formato: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)');
+  if (!email) errors.push('E-mail do cliente obrigatório');
+  else if (!email.includes('@')) errors.push('E-mail do cliente inválido');
+
+  if (errors.length === 0) {
+    btn.disabled = false;
+    status.style.display = 'block';
+    status.style.background = 'rgba(26,107,69,0.15)';
+    status.style.border = '1px solid rgba(46,204,113,0.3)';
+    status.style.color = '#2ECC71';
+    status.innerHTML = '✅ Tudo preenchido! Clique em "Enviar para D4Sign" quando estiver pronto.';
+  } else {
+    btn.disabled = true;
+    status.style.display = 'block';
+    status.style.background = 'rgba(192,57,43,0.1)';
+    status.style.border = '1px solid rgba(192,57,43,0.3)';
+    status.style.color = '#E74C3C';
+    status.innerHTML = '⚠️ ' + errors.join(' &nbsp;·&nbsp; ');
+  }
+}
+
+async function sendToD4Sign() {
+  const apiKey = document.getElementById('d4-apikey').value.trim();
+  const safeId = document.getElementById('d4-safe').value.trim();
+  const emailCliente = document.getElementById('d4-email-cliente').value.trim();
+  const emailAdv = document.getElementById('d4-email-adv').value.trim();
+  const msg = document.getElementById('d4-msg').value.trim();
+
+  if (!apiKey) { toast('⚠️ Informe a Chave de API do D4Sign', 'error'); return; }
+  if (!safeId) { toast('⚠️ Informe o UUID do Safe no D4Sign', 'error'); return; }
+  if (!emailCliente) { toast('⚠️ Informe o e-mail do cliente', 'error'); return; }
+
+  const btn = document.getElementById('btn-send-d4');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Gerando PDF e enviando...';
+
+  try {
+    // 1. Generate combined HTML content
+    const c = getClient();
+    const r = hasRepr ? getRepr() : {};
+    let docHtml = `<!DOCTYPE html><html lang="pt-BR"><head>
+      <meta charset="UTF-8">
+      <style>
+        body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.7;color:#1a1a1a;margin:0}
+        .doc-page{padding:48px 56px;page-break-after:always}
+        .letterhead{text-align:center;border-bottom:2px solid #B8962E;padding-bottom:16px;margin-bottom:24px}
+        .letterhead h1{font-size:18px;color:#0F3460;letter-spacing:2px}
+        .doc-title{text-align:center;font-weight:bold;font-size:14px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px;color:#0F3460}
+        table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}
+        td{padding:5px 8px;border:1px solid #ddd}
+        td:first-child{font-weight:bold;width:140px;background:#f8f6f0;color:#0F3460}
+        p{margin-bottom:10px;text-align:justify}
+        .sig-area{margin-top:40px;display:flex;justify-content:space-around;text-align:center}
+        .sig-line{border-top:1px solid #333;padding-top:6px;font-size:11px;width:200px}
+      </style></head><body>`;
+
+    selectedDocs.forEach(id => {
+      docHtml += `<div class="doc-page">${genDoc(id, c, r)}</div>`;
+    });
+    docHtml += '</body></html>';
+
+    // 2. Convert to Blob / base64 for D4Sign upload
+    const htmlBlob = new Blob([docHtml], { type: 'text/html' });
+    const base64 = await blobToBase64(htmlBlob);
+
+    // 3. Upload document to D4Sign
+    toast('📤 Fazendo upload do documento...', '');
+    const uploadResp = await d4signRequest('/documents/' + safeId + '/upload', 'POST', apiKey, {
+      base64_binary_file: base64.split(',')[1],
+      mime_type: 'text/html',
+      name: 'Kit_Postulatório_' + (c.nome || 'Cliente').replace(/\s+/g,'_') + '.html',
+    });
+
+    if (!uploadResp || uploadResp.message !== 'Document created') {
+      throw new Error('Falha no upload: ' + JSON.stringify(uploadResp));
+    }
+
+    const docUuid = uploadResp.uuid;
+    toast('✅ Documento enviado! UUID: ' + docUuid, 'success');
+
+    // 4. Add signers
+    const canal = document.getElementById('d4-canal-cliente')?.value || 'email';
+    const whaCliente = getWhatsAppFormatted(document.getElementById('d4-whatsapp-cliente')?.value || '');
+
+    // Build client signer payload
+    const clienteSigner = {
+      act: document.getElementById('d4-tipo-cliente').value,
+      foreign: '0',
+      certificadoicpbr: '0'
+    };
+    // Set contact based on chosen channel
+    if (canal === 'whatsapp' && whaCliente) {
+      // WhatsApp only: use phone number as email field
+      clienteSigner.email = whaCliente;
+      clienteSigner.whatsapp_number = whaCliente;
+    } else if (canal === 'ambos' && whaCliente) {
+      clienteSigner.email = emailCliente;
+      clienteSigner.whatsapp_number = whaCliente;
+    } else {
+      clienteSigner.email = emailCliente;
+    }
+
+    const signers = [
+      clienteSigner,
+      { email: emailAdv, act: document.getElementById('d4-tipo-adv').value, foreign: '0', certificadoicpbr: '0' },
+    ];
+    if (hasRepr) {
+      const re = (document.getElementById('d4-email-repr')?.value || '').trim();
+      const rw = getWhatsAppFormatted(document.getElementById('d4-whatsapp-repr')?.value || '');
+      if (re || rw) {
+        const reprSigner = { act: document.getElementById('d4-tipo-repr').value, foreign: '0', certificadoicpbr: '0', email: re || rw };
+        if (rw) reprSigner.whatsapp_number = rw;
+        signers.push(reprSigner);
+      }
+    }
+
+    for (const signer of signers) {
+      await d4signRequest('/documents/' + docUuid + '/createlist', 'POST', apiKey, signer);
+    }
+
+    // 5. Send to sign
+    await d4signRequest('/documents/' + docUuid + '/sendtosign', 'POST', apiKey, {
+      message: msg,
+      workflow: '0',
+      skip_email: '0',
+    });
+
+    // Update statuses
+    selectedDocs.forEach(id => {
+      const el = document.getElementById('status-' + id);
+      if (el) el.outerHTML = '<span class="badge badge-done">✅ Enviado para assinatura</span>';
+    });
+
+    toast('🎉 Kit postulatório enviado para assinatura!', 'success');
+  } catch (err) {
+    toast('❌ Erro: ' + err.message, 'error');
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '✍️ Enviar para D4Sign';
+  }
+}
+
+function getD4BaseUrl() {
+  const env = document.getElementById('d4-env')?.value;
+  return env === 'sandbox'
+    ? 'https://sandbox.d4sign.com.br/api/v1'
+    : 'https://secure.d4sign.com.br/api/v1';
+}
+
+async function d4signRequest(path, method, apiKey, body) {
+  const resp = await fetch(getD4BaseUrl() + path + '?tokenAPI=' + apiKey, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  return resp.json();
+}
+
+function blobToBase64(blob) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(blob);
+  });
+}
+
+// ─── DOWNLOAD PDF ─────────────────────────────────────────
+function downloadPDF() {
+  const c = getClient();
+  const r = hasRepr ? getRepr() : {};
+  let html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.7;color:#1a1a1a;margin:0}
+    .doc-page{padding:52px 64px;page-break-after:always;max-width:800px;margin:0 auto}
+    .letterhead{text-align:center;border-bottom:2px solid #B8962E;padding-bottom:16px;margin-bottom:24px}
+    .letterhead h1{font-family:'Playfair Display',serif;font-size:20px;color:#0F3460;letter-spacing:2px;text-transform:uppercase}
+    .letterhead p{font-size:11px;color:#666;margin-top:4px}
+    .doc-title{text-align:center;font-weight:bold;font-size:14px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px;color:#0F3460}
+    table.field-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px}
+    table.field-table td{padding:5px 8px;border:1px solid #ddd}
+    table.field-table td:first-child{font-weight:bold;width:140px;background:#f8f6f0;color:#0F3460}
+    p{margin-bottom:10px;text-align:justify}
+    .signature-area{margin-top:40px;display:flex;justify-content:space-around;text-align:center}
+    .sig-line{border-top:1px solid #333;padding-top:6px;font-size:11px;width:200px}
+    @media print{.doc-page{page-break-after:always}}
+  </style></head><body>`;
+
+  selectedDocs.forEach(id => {
+    html += `<div class="doc-page">${genDoc(id, c, r)}</div>`;
+  });
+  html += '</body></html>';
+
+  const blob = new Blob([html], {type: 'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Kit_Postulatório_' + (c.nome || 'Cliente').replace(/\s+/g,'_') + '.html';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('⬇️ Arquivo gerado! Abra no navegador e use Ctrl+P para salvar como PDF.', 'success');
+}
+
+function printDoc() {
+  const c = getClient();
+  const r = hasRepr ? getRepr() : {};
+  let html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+  <style>
+    *{box-sizing:border-box}
+    body{font-family:'Times New Roman',serif;font-size:13px;line-height:1.7;color:#000;margin:0}
+    .doc-page{padding:40px 50px;page-break-after:always}
+    .letterhead{text-align:center;border-bottom:2px solid #B8962E;padding-bottom:14px;margin-bottom:20px}
+    .letterhead h1{font-size:18px;color:#0F3460;letter-spacing:2px;text-transform:uppercase}
+    .letterhead p{font-size:10px;color:#555;margin-top:3px}
+    .doc-title{text-align:center;font-weight:bold;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px;color:#0F3460}
+    table.field-table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:14px}
+    table.field-table td{padding:4px 7px;border:1px solid #ccc}
+    table.field-table td:first-child{font-weight:bold;width:130px;background:#f8f6f0;color:#0F3460}
+    p{margin-bottom:8px;text-align:justify}
+    .signature-area{margin-top:36px;display:flex;justify-content:space-around;text-align:center}
+    .sig-line{border-top:1px solid #333;padding-top:5px;font-size:10px;width:180px}
+  </style></head><body>`;
+  selectedDocs.forEach(id => {
+    html += `<div class="doc-page">${genDoc(id, c, r)}</div>`;
+  });
+  html += '</body></html>';
+  const w = window.open('', '_blank');
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+  setTimeout(() => w.print(), 800);
+}
+
+function clearAll() {
+  if (!confirm('Limpar todos os dados e seleções?')) return;
+  document.getElementById('screen-checklist-overlay').style.display = 'none';
+  clChecked = {};
+  ['f-proc','f-nome','f-cpf','f-rg','f-nac','f-prof','f-end','f-bairro','f-cidade','f-uf','f-cep','f-tel','f-email']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('f-nac').value = 'brasileiro(a)';
+  document.getElementById('f-cidade').value = 'Rio de Janeiro';
+  document.getElementById('f-uf').value = 'RJ';
+  selectedDocs.clear();
+  document.querySelectorAll('.doc-card').forEach(d => d.classList.remove('selected'));
+  document.getElementById('sel-count').textContent = '0 documentos selecionados';
+  document.getElementById('toggle-repr').checked = false;
+  document.getElementById('repr-section').style.display = 'none';
+  hasRepr = false;
+  updateDisplay();
+  toast('🗑️ Dados limpos!', '');
+  goScreen('promad');
+}
+
+// ─── TOAST ───────────────────────────────────────────────
+function toast(msg, type) {
+  const el = document.createElement('div');
+  el.className = 'toast' + (type ? ' ' + type : '');
+  el.innerHTML = msg;
+  const container = document.getElementById('toast-container');
+  container.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(() => el.remove(), 300); }, 4000);
+}
+
+// ─── WHATSAPP HELPERS ─────────────────────────────────
+function formatWhatsApp(input) {
+  // Auto-format: strip non-digits, add +55 prefix if missing
+  let val = input.value.replace(/[^\d+]/g, '');
+  if (val && !val.startsWith('+')) {
+    // If starts with 55 and has 13 digits, add +
+    if (val.startsWith('55') && val.length >= 12) val = '+' + val;
+    // If starts with 0 (old format), replace with +55
+    else if (val.startsWith('0')) val = '+55' + val.substring(1);
+    // If 10-11 digits (local), add +55
+    else if (val.length >= 10 && val.length <= 11) val = '+55' + val;
+  }
+  input.value = val;
+}
+
+function getWhatsAppFormatted(raw) {
+  if (!raw) return '';
+  // Strip everything except digits and leading +
+  let val = raw.replace(/[^\d]/g, '');
+  // Must have at least 10 digits (DDD + number)
+  if (val.length < 10) return '';
+  // Add country code if missing
+  if (val.length === 10 || val.length === 11) val = '55' + val;
+  return '+' + val;
+}
+
+// ─── INIT ─────────────────────────────────────────────────
+updateStepper();
+updateDisplay();
+
+
+// ══════════════════════════════════════════════════════════════
+// CHECKLIST DATA & FUNCTIONS
+// ══════════════════════════════════════════════════════════════
+
+const DOCS_COMUNS = {
+  basico: {
+    label: '📋 Documentos Pessoais Básicos',
+    items: [
+      { id:'rg', label:'RG', urgent:true },
+      { id:'cpf', label:'CPF', urgent:true },
+      { id:'comp_res', label:'Comprovante de Residência atualizado', urgent:true },
+    ]
+  },
+  renda: {
+    label: '💰 Documentos de Renda e Gastos',
+    items: [
+      { id:'comp_renda', label:'Comprovante de Renda (contracheque, extrato bancário, IR)' },
+      { id:'comp_gastos', label:'Comprovante de Gastos (água, luz, gás, telefone, saúde, educação, dívidas)' },
+    ]
+  },
+  inss: {
+    label: '🏛️ Documentos INSS',
+    items: [
+      { id:'cnis', label:'CNIS Completo (Vínculos e Remunerações)', urgent:true },
+      { id:'senha_inss', label:'Senha Meu INSS (login e senha do app/site)' },
+      { id:'carta_conc', label:'Carta de Concessão do benefício atual (se houver)', optional:true },
+    ]
+  }
+};
+
+const DOCS_TRABALHO = {
+  label: '💼 Documentos Trabalhistas',
+  items: [
+    { id:'ctps', label:'Carteira de Trabalho — CTPS (todas as páginas)', urgent:true },
+    { id:'decl_emp', label:'Declaração da Empresa / Contrato de Trabalho' },
+    { id:'fgts', label:'Extrato de FGTS' },
+    { id:'carnes', label:'Carnês de Contribuição / Contribuições MEI' },
+    { id:'proc_adm', label:'Cópia dos Processos Administrativos anteriores (se houver)', optional:true },
+  ]
+};
+
+const DOCS_MEDICOS = {
+  label: '🏥 Documentos Médicos',
+  items: [
+    { id:'laudo_med', label:'Laudos Médicos com CID, Data de Início da Incapacidade (DII) e prognóstico', urgent:true },
+    { id:'exames', label:'Exames médicos (ressonância, tomografia, raio-X, laboratoriais)', urgent:true },
+    { id:'receituarios', label:'Receituários médicos com cópia das bulas das medicações' },
+    { id:'encam_esp', label:'Encaminhamentos a médicos especialistas' },
+    { id:'prontuario', label:'Prontuário médico (histórico clínico completo)' },
+  ]
+};
+
+const DOCS_ACIDENTE = {
+  label: '⚠️ Documentos de Acidente de Trabalho',
+  items: [
+    { id:'cat', label:'CAT — Comunicação de Acidente de Trabalho', urgent:true },
+    { id:'bo', label:'Boletins de Ocorrência do Acidente', urgent:true },
+  ]
+};
+
+const CHECKLIST_DATA = {
+
+  aposentadoria_contrib: {
+    title: 'Aposentadoria por Idade / Tempo de Contribuição',
+    icon: '👴',
+    categories: [ DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO, DOCS_COMUNS.renda ]
+  },
+
+  aposentadoria_defic: {
+    title: 'Aposentadoria — Portador de Deficiência Física',
+    icon: '♿',
+    categories: [
+      DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO, DOCS_MEDICOS,
+      {
+        label: '♿ Comprovações Adicionais de Deficiência',
+        items: [
+          { id:'cnh_pcd', label:'CNH especial / Laudo DETRAN para PcD', optional:true },
+          { id:'cart_estac', label:'Cartão de Estacionamento para PcD', optional:true },
+          { id:'hist_esc', label:'Histórico escolar com dispensa de Educação Física', optional:true },
+          { id:'reservista', label:'Certificado de Reservista com dispensa por deficiência', optional:true },
+          { id:'notas_ort', label:'Notas fiscais de órteses, próteses, equipamentos de saúde', optional:true },
+          { id:'reconhec_org', label:'Reconhecimento de deficiência por outros órgãos públicos', optional:true },
+        ]
+      },
+      DOCS_COMUNS.renda,
+    ]
+  },
+
+  aposentadoria_especial: {
+    title: 'Aposentadoria Especial (Insalubridade / Periculosidade)',
+    icon: '☣️',
+    categories: [
+      DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO,
+      {
+        label: '📄 Laudos de Atividade Especial',
+        items: [
+          { id:'laudo_ppp', label:'Laudo PPP — Perfil Profissiográfico Previdenciário (antigo SB-40 / DIRBEN 8030)', urgent:true },
+          { id:'laudo_sb40', label:'Laudo SB-40', optional:true },
+          { id:'laudo_dss', label:'Laudo DSS-8030', optional:true },
+          { id:'laudo_saude', label:'Laudo médico comprovando prejuízo à saúde pelas atividades', urgent:true },
+        ]
+      },
+      DOCS_COMUNS.renda,
+    ]
+  },
+
+  aposentadoria_acident: {
+    title: 'Aposentadoria Acidentária',
+    icon: '🦺',
+    categories: [ DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO, DOCS_MEDICOS, DOCS_ACIDENTE, DOCS_COMUNS.renda ]
+  },
+
+  revisao_contrib: {
+    title: 'Revisão de Aposentadoria — Idade / Tempo de Contribuição',
+    icon: '🔄',
+    categories: [
+      DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO,
+      {
+        label: '📑 Documentos Específicos da Revisão',
+        items: [
+          { id:'carta_aposent', label:'Carta de Concessão da Aposentadoria', urgent:true },
+          { id:'proc_trab', label:'Cópia Integral do Processo Trabalhista (se houver)', optional:true },
+          { id:'laudo_ppp_rev', label:'Laudo PPP — se envolver atividade especial', optional:true },
+          { id:'laudo_sb40_rev', label:'Laudo SB-40 / DSS-8030', optional:true },
+        ]
+      },
+      DOCS_COMUNS.renda,
+    ]
+  },
+
+  revisao_invalidez: {
+    title: 'Revisão de Aposentadoria — Invalidez / Acidentária',
+    icon: '🔄',
+    categories: [
+      DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO, DOCS_MEDICOS, DOCS_ACIDENTE,
+      { label:'📑 Documentos Específicos da Revisão', items:[
+        { id:'carta_aposent_r', label:'Carta de Concessão da Aposentadoria', urgent:true },
+      ]},
+      DOCS_COMUNS.renda,
+    ]
+  },
+
+  auxdoenca: {
+    title: 'Auxílio Doença / Aposentadoria por Invalidez',
+    icon: '🏥',
+    categories: [ DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO, DOCS_MEDICOS, DOCS_COMUNS.renda ]
+  },
+
+  auxdoenca_acident: {
+    title: 'Auxílio Doença / Aposentadoria Acidentária',
+    icon: '🦺',
+    categories: [ DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO, DOCS_MEDICOS, DOCS_ACIDENTE, DOCS_COMUNS.renda ]
+  },
+
+  auxacidente: {
+    title: 'Auxílio Acidente',
+    icon: '⚠️',
+    categories: [
+      DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_TRABALHO,
+      {
+        label: '🏥 Documentos Médicos — Auxílio Acidente',
+        items: [
+          { id:'laudo_seq', label:'Laudos Médicos comprovando sequela que diminui a capacidade de trabalho', urgent:true },
+          { id:'exames_ac', label:'Exames médicos comprovando histórico de saúde' },
+          { id:'guias_int', label:'Guias de Internação / Laudos de cirurgia' },
+          { id:'pront_ac', label:'Prontuário médico' },
+          { id:'cat_ac', label:'CAT — Comunicação de Acidente de Trabalho', urgent:true },
+          { id:'bo_ac', label:'Boletins de Ocorrência do Acidente', urgent:true },
+          { id:'com_dec', label:'Comunicação de Decisão do INSS', urgent:true },
+          { id:'carta_aux', label:'Carta de Concessão do Benefício de Auxílio Doença', urgent:true },
+        ]
+      },
+      DOCS_COMUNS.renda,
+    ]
+  },
+
+  majoracao25: {
+    title: 'Pedido de Majoração de 25%',
+    icon: '💯',
+    categories: [
+      DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_MEDICOS,
+      {
+        label: '👩‍⚕️ Documentos — Majoração de 25%',
+        items: [
+          { id:'laudo_terc', label:'Laudos Médicos que indiquem necessidade de auxílio de terceiros', urgent:true },
+          { id:'guia_int_maj', label:'Guia de Internação comprovando necessidade de auxílio de terceiros' },
+          { id:'nf_mat', label:'Notas fiscais de fraldas geriátricas, cadeira de rodas, muletas, medicações com efeitos colaterais', optional:true },
+        ]
+      },
+      DOCS_COMUNS.renda,
+    ]
+  },
+
+  bpcloas_idade: {
+    title: 'BPC/LOAS — Idoso (65 anos ou mais)',
+    icon: '👴',
+    categories: [
+      {
+        label: '📋 Documentos do Requerente',
+        items: [
+          { id:'rg_req', label:'RG', urgent:true },
+          { id:'cpf_req', label:'CPF', urgent:true },
+          { id:'comp_res_r', label:'Comprovante de Residência', urgent:true },
+          { id:'cad_unico', label:'Cadastro Único — CadÚnico (solicitar no CRAS)', urgent:true },
+          { id:'cert_nasc_cas', label:'Certidão de Nascimento ou Casamento', urgent:true },
+          { id:'cnis_req', label:'CNIS', urgent:true },
+          { id:'biometria', label:'Cadastro de Biometria (Identidade ou Título de Eleitor)' },
+          { id:'senha_inss_r', label:'Senha Meu INSS' },
+        ]
+      },
+      {
+        label: '👨‍👩‍👧 Documentos da Família (pais, filhos, enteados, cônjuges, etc.)',
+        items: [
+          { id:'rg_fam', label:'RG de todos os membros da família', urgent:true, family:true },
+          { id:'cpf_fam', label:'CPF de todos os membros', urgent:true, family:true },
+          { id:'cert_fam', label:'Certidão de Nascimento ou Casamento de cada membro', family:true },
+          { id:'comp_res_fam', label:'Comprovante de Residência', family:true },
+          { id:'gastos_fam', label:'Comprovante de Gastos (desde o último indeferimento no INSS)', family:true },
+          { id:'cnis_fam', label:'CNIS de cada membro', family:true },
+          { id:'ctps_fam', label:'Carteira de Trabalho de cada membro', family:true },
+          { id:'carnes_fam', label:'Carnês de Contribuição', optional:true, family:true },
+          { id:'renda_fam', label:'Comprovante de Renda (contracheque, extrato, IR)', family:true },
+        ]
+      },
+      {
+        label: '📑 Documentos Específicos — LOAS Idade',
+        items: [
+          { id:'com_dec_loas', label:'Comunicação de Decisão do INSS (indeferimento)', urgent:true },
+          { id:'miserab', label:'Comprovação de Miserabilidade (fotos da residência, contas, benefícios recebidos)', urgent:true },
+        ]
+      },
+    ]
+  },
+
+  bpcloas_defic: {
+    title: 'BPC/LOAS — Deficiência / Incapacidade',
+    icon: '♿',
+    categories: [
+      {
+        label: '📋 Documentos do Requerente',
+        items: [
+          { id:'rg_req_d', label:'RG', urgent:true },
+          { id:'cpf_req_d', label:'CPF', urgent:true },
+          { id:'comp_res_rd', label:'Comprovante de Residência', urgent:true },
+          { id:'cad_unico_d', label:'Cadastro Único — CadÚnico (CRAS)', urgent:true },
+          { id:'cert_nasc_d', label:'Certidão de Nascimento ou Casamento', urgent:true },
+          { id:'cnis_req_d', label:'CNIS', urgent:true },
+          { id:'biometria_d', label:'Cadastro de Biometria' },
+          { id:'senha_inss_d', label:'Senha Meu INSS' },
+        ]
+      },
+      {
+        label: '👨‍👩‍👧 Documentos da Família',
+        items: [
+          { id:'rg_fam_d', label:'RG e CPF de todos os membros', urgent:true, family:true },
+          { id:'cert_fam_d', label:'Certidões de Nascimento/Casamento', family:true },
+          { id:'comp_res_fd', label:'Comprovante de Residência de cada membro', family:true },
+          { id:'gastos_fd', label:'Comprovante de Gastos (desde o último indeferimento)', family:true },
+          { id:'renda_fd', label:'Comprovante de Renda de cada membro', family:true },
+          { id:'cnis_fd', label:'CNIS de cada membro', family:true },
+        ]
+      },
+      {
+        label: '📑 Documentos Específicos — Deficiência/Incapacidade',
+        items: [
+          { id:'com_dec_d', label:'Comunicação de Decisão do INSS (indeferimento)', urgent:true },
+          { id:'miserab_d', label:'Comprovação de Miserabilidade (fotos da residência, contas)', urgent:true },
+          { id:'laudo_loas', label:'Laudos Médicos com CID, Data de Início da Incapacidade e prognóstico', urgent:true },
+          { id:'exames_loas', label:'Exames médicos que comprovem incapacidade', urgent:true },
+          { id:'nf_loas', label:'Notas fiscais de fraldas, muletas, cadeira de rodas, medicações', optional:true },
+          { id:'guia_int_l', label:'Guia de Internação em Instituição', optional:true },
+          { id:'pront_l', label:'Prontuário Médico' },
+          { id:'encam_l', label:'Encaminhamentos a médicos especialistas' },
+          { id:'bo_l', label:'Boletim de Ocorrência (se houver acidente/violência)', optional:true },
+        ]
+      },
+    ]
+  },
+
+  bpcloas_avulso: {
+    title: 'BPC/LOAS — Trabalhador Avulso',
+    icon: '⚓',
+    categories: [
+      DOCS_COMUNS.basico, DOCS_COMUNS.inss, DOCS_COMUNS.renda,
+      {
+        label: '⚓ Documentos Específicos — Trabalhador Avulso',
+        items: [
+          { id:'com_dec_av', label:'Comunicação de Decisão do INSS', urgent:true },
+          { id:'miserab_av', label:'Comprovação de Miserabilidade', urgent:true },
+          { id:'decl_ogmo', label:'Declaração do OGMO: atividade portuária por pelo menos 15 anos + 80% de comparecimento', urgent:true },
+        ]
+      },
+    ]
+  },
+
+  pensao_conjuge: {
+    title: 'Pensão por Morte — Cônjuge / Companheiro(a)',
+    icon: '💔',
+    categories: [
+      {
+        label: '🪦 Documentos do Segurado Falecido',
+        items: [
+          { id:'rg_fal', label:'RG do falecido', urgent:true },
+          { id:'cpf_fal', label:'CPF do falecido', urgent:true },
+          { id:'comp_res_fal', label:'Comprovante de Residência do falecido', optional:true },
+          { id:'ctps_fal', label:'Carteira de Trabalho do falecido', urgent:true },
+          { id:'cnis_fal', label:'CNIS Completo do falecido (Vínculos e Remunerações)', urgent:true },
+          { id:'cert_obito', label:'Certidão de Óbito', urgent:true },
+          { id:'bo_fal', label:'Boletim de Ocorrência (se houver)', optional:true },
+          { id:'laudo_fal', label:'Laudos Médicos do falecido', optional:true },
+          { id:'pront_fal', label:'Prontuário Médico do falecido', optional:true },
+        ]
+      },
+      {
+        label: '👤 Documentos do Dependente',
+        items: [
+          { id:'rg_dep', label:'RG', urgent:true },
+          { id:'cpf_dep', label:'CPF', urgent:true },
+          { id:'comp_res_dep', label:'Comprovante de Residência atualizado', urgent:true },
+          { id:'comp_renda_dep', label:'Comprovante de Renda' },
+          { id:'comp_gastos_dep', label:'Comprovante de Gastos (água, luz, gás, saúde, educação)' },
+          { id:'cert_nasc_dep', label:'Certidão de Nascimento' },
+        ]
+      },
+      {
+        label: '💑 Provas de Relacionamento / União',
+        items: [
+          { id:'cert_cas', label:'Certidão de Casamento', urgent:true },
+          { id:'decl_ue', label:'Declaração de União Estável (se aplicável)', optional:true },
+          { id:'decl_test', label:'Declaração de 3 testemunhas — convivência como família até o óbito', urgent:true },
+          { id:'fotos_casal', label:'Fotos do casal com a família (demonstrando o passar do tempo)' },
+          { id:'bilhetes', label:'Bilhetes, cartas, mensagens do casal', optional:true },
+          { id:'comp_res_comum', label:'Comprovante de residência comum (ambos no mesmo endereço)' },
+          { id:'faturas_end', label:'Faturas/contas no mesmo endereço' },
+          { id:'decl_ir', label:'Declaração como dependente no Imposto de Renda' },
+          { id:'plan_saude', label:'Dependência em Plano de Saúde', optional:true },
+          { id:'seg_vida', label:'Dependência em Seguro de Vida', optional:true },
+          { id:'conta_conj', label:'Comprovação de Conta Conjunta', optional:true },
+          { id:'imovel_comum', label:'Comprovação de aquisição de imóvel em comum', optional:true },
+        ]
+      },
+    ]
+  },
+
+  pensao_pais: {
+    title: 'Pensão por Morte — Pais / Avós / Irmãos',
+    icon: '👨‍👩‍👧',
+    categories: [
+      {
+        label: '🪦 Documentos do Segurado Falecido',
+        items: [
+          { id:'rg_fal_p', label:'RG do falecido', urgent:true },
+          { id:'cpf_fal_p', label:'CPF do falecido', urgent:true },
+          { id:'ctps_fal_p', label:'Carteira de Trabalho do falecido', urgent:true },
+          { id:'cnis_fal_p', label:'CNIS Completo do falecido', urgent:true },
+          { id:'cert_obito_p', label:'Certidão de Óbito', urgent:true },
+        ]
+      },
+      {
+        label: '👤 Documentos do Dependente (Pai/Avó/Irmão)',
+        items: [
+          { id:'rg_dep_p', label:'RG', urgent:true },
+          { id:'cpf_dep_p', label:'CPF', urgent:true },
+          { id:'comp_res_dep_p', label:'Comprovante de Residência atualizado', urgent:true },
+          { id:'comp_renda_p', label:'Comprovante de Renda' },
+          { id:'comp_gastos_p', label:'Comprovante de Gastos' },
+        ]
+      },
+      {
+        label: '💰 Provas de Dependência Econômica',
+        items: [
+          { id:'dep_fin', label:'Depósitos bancários da ajuda financeira do falecido para o dependente', urgent:true },
+          { id:'cc_fal', label:'Cartão de Crédito do falecido (em nome do dependente)' },
+          { id:'decl_test_p', label:'Declaração de Testemunhas', urgent:true },
+          { id:'recibos', label:'Recibos em nome do falecido (escola, médico, dentista, aluguel)' },
+          { id:'dep_ir_p', label:'Dependência no IR, plano de saúde ou seguro de vida' },
+        ]
+      },
+    ]
+  },
+
+  servidor_aposent: {
+    title: 'Servidor Público — Aposentadoria Compulsória / Voluntária',
+    icon: '🏛️',
+    categories: [
+      {
+        label: '📋 Documentos Comuns — Servidor Público',
+        items: [
+          { id:'rg_sv', label:'RG', urgent:true },
+          { id:'cpf_sv', label:'CPF', urgent:true },
+          { id:'comp_res_sv', label:'Comprovante de Residência atualizado', urgent:true },
+          { id:'comp_renda_sv', label:'Comprovante de Renda', urgent:true },
+          { id:'comp_gastos_sv', label:'Comprovante de Gastos' },
+        ]
+      },
+      {
+        label: '🏛️ Documentos Específicos — Aposentadoria Servidor',
+        items: [
+          { id:'cert_tempo', label:'Certidão de Tempo de Contribuição (CTC)', urgent:true },
+          { id:'cnis_sv', label:'CNIS — se houver tempo no Regime Geral (INSS)', optional:true },
+          { id:'ctps_sv', label:'Carteira de Trabalho — se trabalhou em regime celetista', optional:true },
+          { id:'carnes_sv', label:'Carnês de Contribuição individual (se houver)', optional:true },
+        ]
+      },
+    ]
+  },
+
+  servidor_especial: {
+    title: 'Servidor Público — Aposentadoria Especial',
+    icon: '☣️',
+    categories: [
+      {
+        label: '📋 Documentos Comuns — Servidor Público',
+        items: [
+          { id:'rg_sve', label:'RG', urgent:true },
+          { id:'cpf_sve', label:'CPF', urgent:true },
+          { id:'comp_res_sve', label:'Comprovante de Residência', urgent:true },
+          { id:'comp_renda_sve', label:'Comprovante de Renda' },
+        ]
+      },
+      {
+        label: '☣️ Documentos — Aposentadoria Especial Servidor',
+        items: [
+          { id:'formulario_sv', label:'Formulário de Aposentadoria Especial (do órgão público)', urgent:true },
+          { id:'ltcat', label:'LTCAT — Laudo Técnico das Condições Ambientais do Trabalho', urgent:true },
+          { id:'laudo_pericia', label:'Laudo da Perícia Médica', urgent:true },
+          { id:'dec_adm', label:'Decisão da Administração Pública', urgent:true },
+        ]
+      },
+    ]
+  },
+
+  servidor_invalidez: {
+    title: 'Servidor Público — Invalidez / Auxílio Doença / Deficiência',
+    icon: '🏥',
+    categories: [
+      {
+        label: '📋 Documentos Comuns — Servidor Público',
+        items: [
+          { id:'rg_svi', label:'RG', urgent:true },
+          { id:'cpf_svi', label:'CPF', urgent:true },
+          { id:'comp_res_svi', label:'Comprovante de Residência', urgent:true },
+          { id:'comp_renda_svi', label:'Comprovante de Renda' },
+          { id:'comp_gastos_svi', label:'Comprovante de Gastos' },
+        ]
+      },
+      DOCS_MEDICOS,
+      {
+        label: '🏥 Documentos Adicionais — Servidor',
+        items: [
+          { id:'nf_sv_inv', label:'Notas fiscais de fraldas, cadeira de rodas, medicações (pedido de auxílio terceiros)', optional:true },
+          { id:'dep_sv', label:'Documentos dos Dependentes (RG, CPF, certidão de nascimento/casamento)', optional:true },
+        ]
+      },
+    ]
+  },
+
+  curatela: {
+    title: 'Curatela',
+    icon: '🛡️',
+    categories: [
+      {
+        label: '👤 Documentos do Requerente (a ser Curatelado)',
+        items: [
+          { id:'rg_cur', label:'RG', urgent:true },
+          { id:'cpf_cur', label:'CPF', urgent:true },
+          { id:'comp_res_cur', label:'Comprovante de Residência', urgent:true },
+          { id:'cnis_cur', label:'CNIS Completo', urgent:true },
+          { id:'carta_cur', label:'Carta de Concessão de benefício (se houver)', optional:true },
+          { id:'gastos_cur', label:'Comprovante de Gastos' },
+        ]
+      },
+      {
+        label: '👨‍💼 Documentos do Responsável pela Curatela',
+        items: [
+          { id:'rg_resp', label:'RG do responsável', urgent:true },
+          { id:'cpf_resp', label:'CPF do responsável', urgent:true },
+          { id:'comp_res_resp', label:'Comprovante de Residência do responsável', urgent:true },
+          { id:'laudo_resp', label:'Laudo médico (do requerente — incapacidade)', urgent:true },
+        ]
+      },
+      DOCS_MEDICOS,
+      {
+        label: '📜 Documentos Jurídicos da Curatela',
+        items: [
+          { id:'termo_cur', label:'Termo de Curatela anterior (se for substituição de responsável)', optional:true },
+          { id:'decl_idon', label:'Declaração de Idoneidade Moral do responsável', urgent:true },
+          { id:'decl_conc', label:'Declaração de Concordância dos familiares', urgent:true },
+          { id:'decl_1735', label:'Declaração conforme art. 1735 do Código Civil (ausência de impedimentos)', urgent:true },
+          { id:'decl_bens', label:'Declaração de Bens do curatelando', urgent:true },
+        ]
+      },
+    ]
+  },
+
+  alvara: {
+    title: 'Alvará Judicial (FGTS / PIS / PASEP)',
+    icon: '🏦',
+    categories: [
+      {
+        label: '🪦 Documentos do Falecido',
+        items: [
+          { id:'rg_fal_al', label:'RG do falecido', urgent:true },
+          { id:'cpf_fal_al', label:'CPF do falecido', urgent:true },
+          { id:'cert_obito_al', label:'Certidão de Óbito', urgent:true },
+          { id:'cert_nasc_fal', label:'Certidão de Nascimento ou Casamento do falecido', urgent:true },
+          { id:'dados_banco', label:'Dados Bancários do falecido (agência, conta)', urgent:true },
+          { id:'fgts_pis', label:'Dados da conta inativa de FGTS / PIS / PASEP', urgent:true },
+        ]
+      },
+      {
+        label: '👨‍👩‍👧 Documentos dos Herdeiros',
+        items: [
+          { id:'rg_herd', label:'RG de cada herdeiro', urgent:true },
+          { id:'cpf_herd', label:'CPF de cada herdeiro', urgent:true },
+          { id:'cert_herd', label:'Certidão de Nascimento ou Casamento de cada herdeiro (com averbação se divorciado)', urgent:true },
+          { id:'comp_res_herd', label:'Comprovante de Residência de cada herdeiro', urgent:true },
+          { id:'obito_herd', label:'Certidão de Óbito de herdeiro falecido (se houver)', optional:true },
+          { id:'decl_abm', label:'Declaração de abertura mão de valores (herdeiro que não quer receber)', optional:true },
+        ]
+      },
+      {
+        label: '⚖️ Documentos para Gratuidade de Justiça',
+        items: [
+          { id:'ctps_al', label:'CTPS — Cópia integral de cada herdeiro', urgent:true },
+          { id:'ir_al', label:'Cópia da última Declaração de Imposto de Renda (ou declaração de isenção)', urgent:true },
+          { id:'renda_al', label:'Comprovante de Renda para verificação do direito à gratuidade', urgent:true },
+        ]
+      },
+    ]
+  },
+
+};
+
+// ─── CHECKLIST STATE ──────────────────────────────────────
+let clChecked = {};
+let clCurrentType = '';
+
+function goChecklist() {
+  document.getElementById('screen-checklist-overlay').style.display = 'block';
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('nav-checklist').classList.add('active');
+  const nome = document.getElementById('f-nome') ? document.getElementById('f-nome').value.trim() : '';
+  const cpf = document.getElementById('f-cpf') ? document.getElementById('f-cpf').value.trim() : '';
+  const headerEl = document.querySelector('#screen-checklist-overlay h2');
+  if (nome) {
+    headerEl.textContent = 'Checklist — ' + nome;
+  } else {
+    headerEl.textContent = 'Checklist de Documentos';
+  }
+  // Pre-fill D4sign email field if client email exists
+  const email = document.getElementById('f-email') ? document.getElementById('f-email').value : '';
+  const d4email = document.getElementById('d4-email-cliente');
+  if (d4email && email && !d4email.value) d4email.value = email;
+}
+
+function closeChecklist() {
+  document.getElementById('screen-checklist-overlay').style.display = 'none';
+  // Restore correct nav highlight
+  const step = STEPS[currentStep - 1];
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + step);
+  if (navEl) navEl.classList.add('active');
+}
+
+function renderChecklist() {
+  const tipo = document.getElementById('cl-tipo').value;
+  if (!tipo) {
+    document.getElementById('cl-body').innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--gray)"><div style="font-size:48px;margin-bottom:16px">📋</div><p style="font-size:15px">Selecione o tipo de processo acima para carregar o checklist</p></div>';
+    document.getElementById('cl-stats').style.display = 'none';
+    document.getElementById('cl-actions').style.display = 'none';
+    document.getElementById('cl-obs-area').style.display = 'none';
+    document.getElementById('cl-missing-alert').style.display = 'none';
+    return;
+  }
+  clCurrentType = tipo;
+  if (!clChecked[tipo]) clChecked[tipo] = {};
+  const data = CHECKLIST_DATA[tipo];
+  if (!data) return;
+  document.getElementById('cl-stats').style.display = 'flex';
+  document.getElementById('cl-actions').style.display = 'flex';
+  document.getElementById('cl-obs-area').style.display = 'block';
+  let html = '';
+  data.categories.forEach(function(cat, ci) {
+    const catId = 'cat_' + ci;
+    html += '<div class="checklist-category" id="' + catId + '">';
+    html += '<div class="checklist-cat-header" onclick="toggleCat(this)">';
+    html += '<div class="checklist-cat-title"><span>' + cat.label + '</span></div>';
+    html += '<div class="checklist-cat-progress"><div class="progress-bar"><div class="progress-fill" id="pf_' + catId + '" style="width:0%"></div></div>';
+    html += '<span style="font-size:12px;color:var(--gray)" id="pl_' + catId + '">0/' + cat.items.length + '</span>';
+    html += '<span class="collapse-arrow">▼</span></div></div>';
+    html += '<div class="checklist-items">';
+    cat.items.forEach(function(item) {
+      const checked = clChecked[tipo] && clChecked[tipo][item.id];
+      let tags = '';
+      if (item.urgent) tags += '<span class="item-tag urgent">OBRIGATÓRIO</span>';
+      if (item.optional) tags += '<span class="item-tag optional">OPCIONAL</span>';
+      if (item.family) tags += '<span class="item-tag family">POR MEMBRO</span>';
+      html += '<label class="checklist-item' + (checked ? ' checked' : '') + '">';
+      html += '<input type="checkbox"' + (checked ? ' checked' : '') + ' onchange="toggleItem(\'' + tipo + '\',\'' + item.id + '\', this, \'' + catId + '\')">';
+      html += '<span class="item-label">' + item.label + '</span>' + tags + '</label>';
+    });
+    html += '</div></div>';
+  });
+  document.getElementById('cl-body').innerHTML = html;
+  updateAllProgress(tipo);
+}
+
+function toggleItem(tipo, id, el, catId) {
+  if (!clChecked[tipo]) clChecked[tipo] = {};
+  clChecked[tipo][id] = el.checked;
+  var label = el.closest('.checklist-item');
+  if (el.checked) label.classList.add('checked');
+  else label.classList.remove('checked');
+  updateAllProgress(tipo);
+}
+
+function updateAllProgress(tipo) {
+  var data = CHECKLIST_DATA[tipo];
+  if (!data) return;
+  var total = 0, ok = 0, urgent_missing = 0;
+  data.categories.forEach(function(cat, ci) {
+    var catId = 'cat_' + ci;
+    var catTotal = cat.items.length, catOk = 0;
+    cat.items.forEach(function(item) {
+      total++;
+      if (clChecked[tipo] && clChecked[tipo][item.id]) { ok++; catOk++; }
+      else if (item.urgent) urgent_missing++;
+    });
+    var pct = catTotal > 0 ? Math.round(catOk/catTotal*100) : 0;
+    var pf = document.getElementById('pf_' + catId);
+    var pl = document.getElementById('pl_' + catId);
+    if (pf) { pf.style.width = pct + '%'; pf.className = 'progress-fill' + (pct===100?' complete':''); }
+    if (pl) pl.textContent = catOk + '/' + catTotal;
+  });
+  document.getElementById('st-total').textContent = total;
+  document.getElementById('st-ok').textContent = ok;
+  document.getElementById('st-pend').textContent = (total - ok);
+  document.getElementById('st-urg').textContent = urgent_missing;
+  document.getElementById('cl-progress-label').textContent = ok + ' de ' + total + ' documentos confirmados (' + Math.round(ok/total*100) + '%)';
+  if (urgent_missing > 0) {
+    var missing = [];
+    data.categories.forEach(function(cat) {
+      cat.items.forEach(function(item) {
+        if (item.urgent && !(clChecked[tipo] && clChecked[tipo][item.id])) missing.push(item.label);
+      });
+    });
+    document.getElementById('cl-missing-alert').style.display = 'block';
+    document.getElementById('cl-missing-list').innerHTML = missing.map(function(m){ return '<li>' + m + '</li>'; }).join('');
+  } else {
+    document.getElementById('cl-missing-alert').style.display = 'none';
+  }
+}
+
+function toggleCat(header) {
+  header.closest('.checklist-category').classList.toggle('checklist-collapsed');
+}
+
+function checkAll() {
+  var tipo = document.getElementById('cl-tipo').value;
+  if (!tipo) return;
+  var data = CHECKLIST_DATA[tipo];
+  if (!clChecked[tipo]) clChecked[tipo] = {};
+  data.categories.forEach(function(cat){ cat.items.forEach(function(item){ clChecked[tipo][item.id] = true; }); });
+  renderChecklistKeepTipo(tipo);
+}
+
+function uncheckAll() {
+  var tipo = document.getElementById('cl-tipo').value;
+  if (!tipo) return;
+  clChecked[tipo] = {};
+  renderChecklistKeepTipo(tipo);
+}
+
+function renderChecklistKeepTipo(tipo) {
+  renderChecklist();
+  document.getElementById('cl-tipo').value = tipo;
+  // updateAllProgress already called inside renderChecklist
+}
+
+function generateMissingMsg() {
+  var tipo = document.getElementById('cl-tipo').value;
+  if (!tipo) { toast('Selecione o tipo de processo primeiro', 'error'); return; }
+  var data = CHECKLIST_DATA[tipo];
+  var nome = (document.getElementById('f-nome') ? document.getElementById('f-nome').value : '') || 'prezado(a) cliente';
+  var missing = [];
+  data.categories.forEach(function(cat) {
+    cat.items.forEach(function(item) {
+      if (!(clChecked[tipo] && clChecked[tipo][item.id])) {
+        missing.push('• ' + item.label + (item.urgent ? ' ⚠️' : ''));
+      }
+    });
+  });
+  if (missing.length === 0) { toast('Todos os documentos já estão confirmados!', 'success'); return; }
+  var firstName = nome.split(' ')[0];
+  var msg = 'Olá, ' + firstName + '! 😊\n\nPara darmos andamento ao seu processo (' + data.title + '), ainda precisamos dos seguintes documentos:\n\n' + missing.join('\n') + '\n\n⚠️ Os itens marcados com ⚠️ são OBRIGATÓRIOS para iniciar o processo.\n\nOs documentos podem ser enviados por foto (legível, sem cortes) pelo WhatsApp ou entregues presencialmente no escritório.\n\nQualquer dúvida estamos à disposição!\n📞 (21) 3156-1720 | 98731-0387\n🌐 www.penaadvogados.com.br\n📍 Pena Advogados — Rua Ari Lobo, 309, Campo Grande, RJ';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(msg).then(function() {
+      toast('📋 Mensagem copiada! Cole no WhatsApp do cliente.', 'success');
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = msg; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    toast('📋 Mensagem copiada para a área de transferência!', 'success');
+  }
+}
+
+function printChecklist() {
+  var tipo = document.getElementById('cl-tipo').value;
+  if (!tipo) { toast('Selecione o tipo de processo', 'error'); return; }
+  var data = CHECKLIST_DATA[tipo];
+  var nome = (document.getElementById('f-nome') ? document.getElementById('f-nome').value : '') || '—';
+  var cpf = (document.getElementById('f-cpf') ? document.getElementById('f-cpf').value : '') || '—';
+  var obs = (document.getElementById('cl-notes') ? document.getElementById('cl-notes').value : '') || '';
+  var html = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><style>body{font-family:Times New Roman,serif;font-size:12px;color:#000;margin:0}.page{padding:36px 48px}.header{text-align:center;border-bottom:2px solid #B8962E;padding-bottom:14px;margin-bottom:20px}.header h1{font-size:17px;letter-spacing:2px;text-transform:uppercase;color:#0F3460}.header p{font-size:10px;color:#555}.title{font-size:14px;font-weight:bold;text-align:center;text-transform:uppercase;margin-bottom:4px}.client-info{background:#f8f6f0;border:1px solid #ddd;border-radius:4px;padding:10px 14px;margin-bottom:18px;font-size:11px}.cat-title{font-weight:bold;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#0F3460;margin:14px 0 6px;border-bottom:1px solid #e0d8c0;padding-bottom:4px}.item{display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:11.5px}.box{width:13px;height:13px;border:1.5px solid #333;flex-shrink:0;margin-top:2px;display:inline-flex;align-items:center;justify-content:center;font-size:9px}.box.ok{background:#1A6B45;border-color:#1A6B45;color:white}.tag-u{font-size:9px;background:#fde8e8;color:#c00;padding:1px 4px;border-radius:3px;margin-left:4px;font-weight:bold;white-space:nowrap}.tag-o{font-size:9px;background:#e8f4ff;color:#069;padding:1px 4px;border-radius:3px;margin-left:4px;white-space:nowrap}.obs{margin-top:20px;border:1px solid #ddd;border-radius:4px;padding:10px;font-size:11px;min-height:60px}.footer{text-align:center;font-size:10px;color:#777;margin-top:24px;padding-top:10px;border-top:1px solid #ddd}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body><div class="page"><div class="header"><h1>Marcela da Silva Pena — Advogados</h1><p>OAB/RJ 148.820 · Av. das Américas, 19005, sala 1120, Torre II, Recreio dos Bandeirantes, RJ · (21) 3156-1720</p></div>';
+  html += '<div class="title">Checklist de Documentos — ' + data.title + '</div>';
+  html += '<div class="client-info"><strong>Cliente:</strong> ' + nome + ' &nbsp;|&nbsp; <strong>CPF:</strong> ' + cpf + ' &nbsp;|&nbsp; <strong>Data:</strong> ' + new Date().toLocaleDateString('pt-BR') + '</div>';
+  data.categories.forEach(function(cat) {
+    html += '<div class="cat-title">' + cat.label + '</div>';
+    cat.items.forEach(function(item) {
+      var checked = clChecked[tipo] && clChecked[tipo][item.id];
+      var tag = item.urgent ? '<span class="tag-u">OBRIGATÓRIO</span>' : (item.optional ? '<span class="tag-o">OPCIONAL</span>' : '');
+      html += '<div class="item"><span class="box' + (checked?' ok':'') + '">' + (checked?'✓':'') + '</span><span>' + item.label + tag + '</span></div>';
+    });
+  });
+  if (obs) html += '<div class="obs"><strong>Observações:</strong><br>' + obs.replace(/\n/g,'<br>') + '</div>';
+  html += '<div class="footer">Pena Advogados · www.penaadvogados.com.br · contato@penaadvogados.com.br</div></div></body></html>';
+  var w = window.open('','_blank'); w.document.write(html); w.document.close(); setTimeout(function(){ w.print(); }, 600);
+}
+
+
+
+// ══════════════════════════════════════════════════
+// CHECKLIST MODULE — goChecklist / closeChecklist nav
+// ═════════════════════════════════════════════════════════
+
+// Override nav-checklist button
+document.getElementById('nav-checklist').addEventListener('click', function(e) {
+  e.stopPropagation();
+  goChecklist();
+});
+
+</script>
+</body>
+</html>
