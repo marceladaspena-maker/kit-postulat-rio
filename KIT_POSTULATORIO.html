@@ -2,8 +2,6 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kit Postulatório | Marcela Pena Advocacia</title>
@@ -700,7 +698,6 @@
           <div style="font-size:15px;font-weight:600;color:var(--white)">Acessar PROMAD Integra</div>
           <div style="font-size:12px;color:var(--gray)">Abre em nova aba — faça login e copie os dados do cliente</div>
           <a href="https://integra.adv.br/login-integra.asp" target="_blank"
-            onclick="document.getElementById('promad-dot').className='status-dot'; document.getElementById('promad-status-text').textContent='PROMAD acessado — aguardando dados'"
             class="btn btn-gold" style="text-decoration:none;width:100%;justify-content:center;font-size:14px;padding:12px 20px">
             🚀 Abrir PROMAD Integra
           </a>
@@ -713,14 +710,10 @@
           <textarea id="promad-paste-area"
             style="flex:1;min-height:130px;background:#F8FAFC;border:1px solid #CBD5E0;border-radius:8px;padding:12px;font-size:12px;color:#1A1A2E;font-family:'DM Sans',sans-serif;resize:vertical;outline:none;line-height:1.6"
             placeholder="Cole aqui o texto copiado da página do contrato no PROMAD (Ctrl+A → Ctrl+C na página do cliente, depois Ctrl+V aqui)..."
-            onfocus="this.style.borderColor='#9A7820'"
-            onblur="this.style.borderColor='#CBD5E0'"
-            oninput="if(this.value.trim().length > 50) { clearTimeout(window._extractTimer); window._extractTimer = setTimeout(extractFromPaste, 800); }"
-            onpaste="setTimeout(function(){ extractFromPaste(); }, 300)"></textarea>
-          <div style="display:flex;gap:10px;margin-top:8px">
-            <button class="btn btn-gold" onclick="extractFromPaste()"
-              style="flex:1;justify-content:center;font-size:16px;padding:16px;letter-spacing:0.5px;font-weight:700">
-              ⚡ Clique Aqui para Extrair os Dados
+            onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-gold" style="flex:1;justify-content:center" onclick="extractFromPaste()">
+              ⚡ Extrair Dados Automaticamente
             </button>
             <button class="btn btn-ghost" onclick="fillManually()">
               ✏️ Preencher Manual
@@ -1250,18 +1243,6 @@
 
 <!-- ═══════════════════════════════════════ JAVASCRIPT ════ -->
 <script>
-// ── STARTUP TEST ──────────────────────────────────────────
-// This runs immediately when page loads - if you see the green bar, JS works!
-document.addEventListener('DOMContentLoaded', function() {
-  var bar = document.createElement('div');
-  bar.id = 'js-ok-bar';
-  bar.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#1A6B45;color:white;padding:8px 16px;font-size:12px;text-align:center;z-index:9999;font-family:Arial';
-  bar.innerHTML = '✅ JavaScript carregado com sucesso! O sistema está funcionando.';
-  document.body.appendChild(bar);
-  setTimeout(function(){ bar.style.display='none'; }, 4000);
-});
-
-
 // ─── STATE ───────────────────────────────────────────────
 let currentStep = 1;
 let selectedDocs = new Set();
@@ -1337,17 +1318,20 @@ function captureFromIframe() {
 }
 
 function extractFromPaste() {
-  try {
-    var area = document.getElementById('promad-paste-area');
-    if (!area) { alert('Erro: campo de texto não encontrado.'); return; }
-    
-    var text = area.value.trim();
-    if (!text) { alert('Cole o texto do PROMAD primeiro.'); return; }
+  const area = document.getElementById('promad-paste-area');
+  const text = area ? area.value.trim() : '';
 
-    parsePromadText(text);
-  } catch(e) {
-    alert('Erro na extração: ' + e.message);
+  if (!text) {
+    toast('⚠️ Cole os dados do PROMAD na área de texto primeiro', 'error');
+    return;
   }
+
+  // Show quick preview of what was pasted (debug)
+  const lineCount = text.split(/\n/).filter(function(l){ return l.trim(); }).length;
+  const firstLine = text.split(/\n/).find(function(l){ return l.trim(); }) || '';
+  console.log('[PROMAD] Text received:', lineCount, 'lines. First:', firstLine);
+
+  parsePromadText(text);
 }
 
 function showManualCapture() {
@@ -1373,66 +1357,46 @@ function parsePromadText(text) {
   }
 
   var fields = {};
-
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i];
     if (!line.endsWith(':')) continue;
     var label = line.slice(0, -1).trim().toLowerCase();
-
     var value = '';
     for (var j = i + 1; j < Math.min(i + 3, lines.length); j++) {
       var next = lines[j];
       if (!next) continue;
-      // Stop at next label
       if (next.endsWith(':')) break;
-      // Value starts with < (PROMAD selected dropdown value)
       if (next.charAt(0) === '<') {
         var val = next.slice(1).trim();
         if (val && !/^Selecione/i.test(val)) value = val;
         break;
       }
-      // Long dropdown: "Selecione... options <Value"
       if (/^Selecione/i.test(next)) {
         var m = next.match(/<([^<]+)$/);
         if (m) { var v2 = m[1].trim(); if (!/^Selecione/i.test(v2)) value = v2; }
         break;
       }
-      // UF line: "UF ACAL... <RJ"
       if (/^UF\s+[A-Z]{2}/.test(next)) {
         var m2 = next.match(/<([A-Z]{2})$/);
         if (m2) value = m2[1].trim();
         break;
       }
-      // Normal value
       value = next;
       break;
     }
-
     if (value) fields[label] = value;
   }
 
-  // Map labels to form field IDs
   var map = {
-    'nome':                  'f-nome',
-    'nacionalidade':         'f-nac',
-    'profissão':        'f-prof',
-    'estado civil':          'f-ecivil',
-    'nascimento':            'f-nasc',
-    'cpf':                   'f-cpf',
-    'rg':                    'f-rg',
-    'e-mail 1':              'f-email',
-    'e-mail':                'f-email',
-    'celular':               'f-tel',
-    'residencial':           'f-tel',
-    'cep':                   'f-cep',
-    'estado':                'f-uf',
-    'endereço':         'f-end',
-    'bairro':                'f-bairro',
-    'cidade':                'f-cidade',
-    'nº do contrato':   'f-proc',
-    'contrato':              'f-proc',
-    'nº contrato':      'f-proc',
-    'processo':              'f-proc',
+    'nome': 'f-nome', 'nacionalidade': 'f-nac',
+    'profiss\u00e3o': 'f-prof', 'estado civil': 'f-ecivil',
+    'nascimento': 'f-nasc', 'cpf': 'f-cpf', 'rg': 'f-rg',
+    'e-mail 1': 'f-email', 'e-mail': 'f-email',
+    'celular': 'f-tel', 'residencial': 'f-tel',
+    'cep': 'f-cep', 'estado': 'f-uf',
+    'endere\u00e7o': 'f-end', 'bairro': 'f-bairro',
+    'cidade': 'f-cidade', 'contrato': 'f-proc',
+    'n\u00ba do contrato': 'f-proc', 'processo': 'f-proc'
   };
 
   var filled = 0;
@@ -1442,25 +1406,23 @@ function parsePromadText(text) {
     if (el && !el.value) { el.value = fields[lbl]; filled++; }
   });
 
-  // WhatsApp = celular
   var cel = fields['celular'] || fields['residencial'] || '';
   if (cel) {
     var wEl = document.getElementById('f-whatsapp');
     if (wEl && !wEl.value) wEl.value = cel;
   }
 
-  // Update status and navigate
   var dot = document.getElementById('promad-dot');
   var txt = document.getElementById('promad-status-text');
   if (filled >= 2) {
     if (dot) dot.className = 'status-dot';
     if (txt) txt.textContent = 'PROMAD conectado';
-    toast('✅ ' + filled + ' campos extraídos!', 'success');
+    toast('\u2705 ' + filled + ' campos extra\u00eddos!', 'success');
     var pa = document.getElementById('promad-paste-area');
     if (pa) pa.value = '';
     goScreen('cliente');
   } else {
-    toast('⚠️ Nenhum dado reconhecido. Verifique se copiou a página do cliente.', 'error');
+    toast('\u26a0\ufe0f Nenhum dado reconhecido.', 'error');
   }
 }
 function fillManually() {
